@@ -1,0 +1,186 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg);
+  isolation: isolate;
+  transition: transform 0.5s var(--ease), border-color 0.5s var(--ease),
+    box-shadow 0.5s var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-7px);
+  border-color: color-mix(in srgb, var(--orange) 48%, transparent);
+  box-shadow: var(--shadow-lg);
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 40 / 21;
+  overflow: hidden;
+  background: var(--ink-black);
+}
+
+.media svg,
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.9s var(--ease);
+}
+
+.card:hover .media svg,
+.card:hover .media img {
+  transform: scale(1.06);
+}
+
+.sector {
+  display: inline-block;
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  background: rgba(10, 11, 11, 0.66);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.headline {
+  display: block;
+  max-width: 62%;
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  text-align: right;
+  color: #fff;
+}
+
+.headlineValue {
+  display: block;
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  color: var(--orange-bright);
+}
+
+.headlineLabel {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 17ch;
+  margin-left: auto;
+  line-height: 1.35;
+  margin-top: 4px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 24px 24px 22px;
+  gap: 10px;
+}
+
+.client {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.title {
+  font-size: 1.16rem;
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.2;
+}
+
+.summary {
+  font-size: 0.93rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.foot {
+  display: flex;
+  margin-top: auto;
+  padding-top: 16px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.year {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.read {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--orange);
+  transition: gap 0.3s var(--ease);
+}
+
+.card:hover .read {
+  gap: 13px;
+}
+
+/* Featured (first) card ---------------------------------------------------- */
+
+.featured {
+  grid-column: span 2;
+  flex-direction: row;
+}
+
+.featured .media {
+  flex: 1 1 52%;
+  aspect-ratio: auto;
+  min-height: 340px;
+}
+
+.featured .body {
+  flex: 1 1 48%;
+  justify-content: center;
+  padding: clamp(26px, 3vw, 44px);
+  gap: 14px;
+}
+
+.featured .title {
+  font-size: clamp(1.45rem, 2.4vw, 2.1rem);
+}
+
+.featured .summary {
+  font-size: 1.02rem;
+}
+
+.featured .headlineValue {
+  font-size: 2.6rem;
+}
+
+@media (max-width: 900px) {
+  .featured {
+    grid-column: span 1;
+    flex-direction: column;
+  }
+
+  .featured .media {
+    min-height: 0;
+    aspect-ratio: 40 / 21;
+  }
+}

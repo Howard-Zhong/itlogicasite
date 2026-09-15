@@ -1,0 +1,130 @@
+.form {
+  display: grid;
+  gap: 16px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 560px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.req {
+  color: var(--orange);
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: color-mix(in srgb, currentColor 4%, transparent);
+  color: inherit;
+  font: inherit;
+  font-size: 0.96rem;
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: color-mix(in srgb, currentColor 38%, transparent);
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--orange) 16%, transparent);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 118px;
+  line-height: 1.55;
+}
+
+.select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23d96119' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 44px;
+  cursor: pointer;
+}
+
+.select option {
+  background: var(--ink-deep);
+  color: #fff;
+}
+
+.routeNote {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  min-height: 20px;
+}
+
+.routeNote strong {
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.submit {
+  justify-self: start;
+  margin-top: 4px;
+}
+
+.status {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.ok {
+  background: color-mix(in srgb, #18a05a 16%, transparent);
+  border: 1px solid color-mix(in srgb, #18a05a 40%, transparent);
+}
+
+.err {
+  background: color-mix(in srgb, #d9481a 16%, transparent);
+  border: 1px solid color-mix(in srgb, #d9481a 42%, transparent);
+}
+
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}

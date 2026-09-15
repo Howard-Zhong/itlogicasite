@@ -1,0 +1,602 @@
+/* ==========================================================================
+   ITLogica design system
+   Brand identity inherited from ai.itlogica.com — orange #d96119 on ink #1f2121,
+   Inter as the single typeface. Layout language: oversized display type,
+   full-bleed dark/light section rhythm, generated geometric art.
+   ========================================================================== */
+
+:root {
+  /* Brand */
+  --orange: #d96119;
+  --orange-bright: #f0873a;
+  --orange-dark: #b84e10;
+  --orange-ink: #7a3308;
+
+  /* Neutrals */
+  --ink: #1f2121;
+  --ink-deep: #121414;
+  --ink-black: #0a0b0b;
+  --white: #ffffff;
+  --gray-50: #f9f9f9;
+  --gray-100: #f3f3f3;
+  --gray-200: #e5e5e5;
+  --gray-300: #d4d4d4;
+  --gray-400: #9ca3af;
+  --gray-600: #6b7280;
+  --gray-700: #374151;
+
+  /* Semantic */
+  --bg: var(--white);
+  --fg: var(--ink);
+  --muted: var(--gray-600);
+  --line: var(--gray-200);
+
+  /* Shape */
+  --radius: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --max-w: 1280px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --nav-h: 76px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 0.25s var(--ease);
+  --t: 0.45s var(--ease);
+  --t-slow: 0.8s var(--ease);
+
+  /* Elevation */
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 18px 60px rgba(0, 0, 0, 0.14);
+  --shadow-orange: 0 18px 50px rgba(217, 97, 25, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--orange);
+  color: var(--white);
+}
+
+/* --------------------------------------------------------------------------
+   Typography scale
+   -------------------------------------------------------------------------- */
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+.display {
+  font-size: clamp(2.9rem, 7.4vw, 6.6rem);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+}
+
+.display-sm {
+  font-size: clamp(2.3rem, 5.2vw, 4.2rem);
+  line-height: 1;
+  letter-spacing: -0.038em;
+}
+
+.h2 {
+  font-size: clamp(1.95rem, 4vw, 3.35rem);
+  line-height: 1.04;
+}
+
+.h3 {
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.lead {
+  font-size: clamp(1.05rem, 1.55vw, 1.3rem);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 2px;
+  background: var(--orange);
+  flex: none;
+}
+
+.accent {
+  color: var(--orange);
+}
+
+/* --------------------------------------------------------------------------
+   Layout primitives
+   -------------------------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: clamp(72px, 10vw, 150px);
+  position: relative;
+}
+
+.section-tight {
+  padding-block: clamp(56px, 7vw, 100px);
+}
+
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 72px);
+  align-items: flex-end;
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+
+.section-head .lead {
+  padding-bottom: 6px;
+}
+
+@media (max-width: 860px) {
+  .section-head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}
+
+.stack-sm > * + * {
+  margin-top: 12px;
+}
+
+.stack > * + * {
+  margin-top: 22px;
+}
+
+/* Dark / light section skins ------------------------------------------------ */
+
+.skin-dark {
+  background: var(--ink-deep);
+  color: var(--white);
+  --muted: rgba(255, 255, 255, 0.62);
+  --line: rgba(255, 255, 255, 0.14);
+  --bg: var(--ink-deep);
+}
+
+.skin-black {
+  background: var(--ink-black);
+  color: var(--white);
+  --muted: rgba(255, 255, 255, 0.6);
+  --line: rgba(255, 255, 255, 0.12);
+  --bg: var(--ink-black);
+}
+
+.skin-mute {
+  background: var(--gray-50);
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+.btn {
+  --btn-bg: var(--orange);
+  --btn-fg: var(--white);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 26px;
+  border: 1px solid transparent;
+  border-radius: 100px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform var(--t-fast), box-shadow var(--t-fast), background var(--t-fast),
+    color var(--t-fast), border-color var(--t-fast);
+}
+
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, var(--orange-bright), var(--orange));
+  opacity: 0;
+  transition: opacity var(--t-fast);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-orange);
+}
+
+.btn:hover::after {
+  opacity: 1;
+}
+
+.btn svg {
+  transition: transform var(--t-fast);
+}
+
+.btn:hover svg {
+  transform: translateX(4px);
+}
+
+.btn-ghost {
+  --btn-bg: transparent;
+  --btn-fg: currentColor;
+  border-color: color-mix(in srgb, currentColor 28%, transparent);
+}
+
+.btn-ghost::after {
+  display: none;
+}
+
+.btn-ghost:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  box-shadow: none;
+}
+
+.btn-light {
+  --btn-bg: var(--white);
+  --btn-fg: var(--ink);
+}
+
+.btn-light::after {
+  display: none;
+}
+
+.btn-light:hover {
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+}
+
+.btn-sm {
+  padding: 11px 18px;
+  font-size: 0.87rem;
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.94rem;
+  color: var(--orange);
+  transition: gap var(--t-fast);
+}
+
+.link-arrow:hover {
+  gap: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   Scroll reveal
+   -------------------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-clip {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-clip.is-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .reveal-clip {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Cards
+   -------------------------------------------------------------------------- */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 2.6vw, 34px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--bg);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform var(--t), border-color var(--t), box-shadow var(--t);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: auto auto 0 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--orange), var(--orange-bright));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--orange) 45%, transparent);
+  box-shadow: var(--shadow-lg);
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.card-icon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 15px;
+  background: color-mix(in srgb, var(--orange) 12%, transparent);
+  color: var(--orange);
+  margin-bottom: 22px;
+  transition: background var(--t), transform var(--t);
+}
+
+.card:hover .card-icon {
+  background: var(--orange);
+  color: var(--white);
+  transform: rotate(-6deg) scale(1.06);
+}
+
+.card h3 {
+  font-size: 1.22rem;
+  letter-spacing: -0.025em;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 0.97rem;
+  line-height: 1.62;
+}
+
+.card .link-arrow {
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.card-index {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: color-mix(in srgb, currentColor 26%, transparent);
+}
+
+.grid {
+  display: grid;
+  gap: clamp(16px, 1.8vw, 24px);
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+/* Chips ------------------------------------------------------------------- */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 6px 13px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: border-color var(--t-fast), color var(--t-fast);
+}
+
+.chip-accent {
+  border-color: color-mix(in srgb, var(--orange) 35%, transparent);
+  color: var(--orange);
+  background: color-mix(in srgb, var(--orange) 8%, transparent);
+}
+
+/* Stats -------------------------------------------------------------------- */
+
+.stat-value {
+  font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.stat-label {
+  margin-top: 8px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: -0.005em;
+}
+
+/* Rules -------------------------------------------------------------------- */
+
+.rule {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Marquee
+   -------------------------------------------------------------------------- */
+
+.marquee {
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 46s) linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-reverse .marquee-track {
+  animation-direction: reverse;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Utility
+   -------------------------------------------------------------------------- */
+
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.overflow-x {
+  overflow-x: auto;
+}
+
+:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
