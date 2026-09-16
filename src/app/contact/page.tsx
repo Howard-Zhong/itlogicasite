@@ -10,7 +10,7 @@ import styles from "../inner.module.css";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Talk to ITLogica in Atlanta, Georgia or Nanjing, China. Choose your office and your enquiry routes straight to the team that answers it.",
+    "Talk to ITLogica in Atlanta, Georgia or Nanjing, China — with additional presence in Columbia, South Carolina and Indianapolis, Indiana. Choose your office and your enquiry routes straight to the team that answers it.",
 };
 
 export default function ContactPage() {
@@ -83,6 +83,22 @@ export default function ContactPage() {
                   </div>
                 </div>
               ))}
+
+              <div className={styles.officeCard}>
+                <h3 className="h3" style={{ marginBottom: 14 }}>
+                  Also on the ground
+                </h3>
+                <div className={styles.officeMeta} style={{ marginTop: 0 }}>
+                  <div>
+                    <Icon name="pin" size={17} />
+                    <span>Columbia, South Carolina</span>
+                  </div>
+                  <div>
+                    <Icon name="pin" size={17} />
+                    <span>Indianapolis, Indiana</span>
+                  </div>
+                </div>
+              </div>
 
               <div className={styles.officeCard}>
                 <h3 className="h3" style={{ marginBottom: 14 }}>

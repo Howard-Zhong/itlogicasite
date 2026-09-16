@@ -3,7 +3,7 @@ import CaseCard from "@/components/CaseCard";
 import Counter from "@/components/Counter";
 import Icon, { type IconName } from "@/components/Icon";
 import Marquee from "@/components/Marquee";
-import ParticleField from "@/components/ParticleField";
+import WordParticles from "@/components/WordParticles";
 import Reveal from "@/components/Reveal";
 import { cases } from "@/data/cases";
 import { capabilities } from "@/data/capabilities";
@@ -14,8 +14,8 @@ import styles from "./home.module.css";
 
 const heroStats = [
   { value: "20+", label: "Years delivering" },
-  { value: "1,500+", label: "Feedyards on our platforms" },
-  { value: "Tier 1", label: "Fortune 500 solution provider" },
+  { value: "500+", label: "Projects delivered" },
+  { value: "100%", label: "On time, on budget" },
 ];
 
 const fdeSteps = [
@@ -49,29 +49,36 @@ export default function HomePage() {
       {/* ---------------------------------------------------------------- Hero */}
       <section className={`${styles.hero} noise`}>
         <div className={styles.heroBg} aria-hidden="true" />
-        <ParticleField className={styles.heroCanvas} />
         <div className={styles.heroGrid} aria-hidden="true" />
 
         <div className={`container ${styles.heroInner}`}>
-          <p className={styles.heroBadge}>
-            <b>Since 2002</b>
-            Atlanta · Nanjing — Fortune 500 Tier 1 solution provider
-          </p>
+          <div className={styles.heroTop}>
+            <div>
+              <p className={styles.heroBadge}>
+                <b>Since 2002</b>
+                Atlanta · Nanjing — Fortune 500 Tier 1 solution provider
+              </p>
 
-          <h1 className={styles.heroTitle}>
-            <span>
-              <i>20+ Years</i>
-            </span>
-            <span>
-              <i>Experience,</i>
-            </span>
-            <span>
-              <i className={styles.heroAccent}>Always on Time</i>
-            </span>
-            <span>
-              <i className={styles.heroAccent}>on Budget.</i>
-            </span>
-          </h1>
+              <h1 className={styles.heroTitle}>
+                <span>
+                  <i>20+ Years</i>
+                </span>
+                <span>
+                  <i>Experience,</i>
+                </span>
+                <span>
+                  <i className={styles.heroAccent}>Always on Time</i>
+                </span>
+                <span>
+                  <i className={styles.heroAccent}>on Budget.</i>
+                </span>
+              </h1>
+            </div>
+
+            <div className={styles.heroWordsWrap} aria-hidden="true">
+              <WordParticles className={styles.heroWords} />
+            </div>
+          </div>
 
           <div className={styles.heroFoot}>
             <div>
@@ -131,16 +138,16 @@ export default function HomePage() {
         </Marquee>
       </section>
 
-      {/* ------------------------------------------- Services & capabilities */}
+      {/* ------------------------------------------------------------ Services */}
       <section className="section">
         <div className="container">
           <div className="section-head">
             <Reveal>
-              <span className="eyebrow">Services &amp; Capabilities</span>
+              <span className="eyebrow">Services</span>
               <h2 className="h2" style={{ marginTop: 16 }}>
-                Four ways to engage us.
+                Four ways
                 <br />
-                Five things we&rsquo;re deep in.
+                to engage us.
               </h2>
             </Reveal>
             <Reveal delay={90}>
@@ -171,42 +178,67 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className={styles.capBand}>
-            <div className={styles.capHead}>
-              <div>
-                <span className="eyebrow">Capabilities</span>
-                <h3>The technology we go deep on</h3>
-              </div>
-              <Link href="/capabilities" className="link-arrow">
-                All capabilities
-                <Icon name="arrow" size={16} />
-              </Link>
-            </div>
+          <div className={styles.svcFoot}>
+            <Link href="/services" className="link-arrow">
+              All services
+              <Icon name="arrow" size={16} />
+            </Link>
+          </div>
+        </div>
+      </section>
 
-            <div className="grid grid-3">
-              {capabilities.map((cap, i) => (
-                <Reveal key={cap.slug} delay={i * 70}>
-                  <Link
-                    href={`/capabilities#${cap.slug}`}
-                    className={`card ${styles.capCard}`}
-                    style={{ height: "100%" }}
-                  >
-                    <span className="card-icon">
-                      <Icon name={cap.icon as IconName} size={26} />
-                    </span>
-                    <h3>{cap.name}</h3>
-                    <p>{cap.blurb}</p>
-                    <div className={`chips ${styles.capStack}`}>
-                      {cap.stack.slice(0, 4).map((s) => (
-                        <span className="chip" key={s}>
-                          {s}
-                        </span>
-                      ))}
-                    </div>
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
+      {/* -------------------------------------------------------- Capabilities */}
+      <section className="section skin-mute">
+        <div className="container">
+          <div className="section-head">
+            <Reveal>
+              <span className="eyebrow">Capabilities</span>
+              <h2 className="h2" style={{ marginTop: 16 }}>
+                Five things
+                <br />
+                we&rsquo;re deep in.
+              </h2>
+            </Reveal>
+            <Reveal delay={90}>
+              <p className="lead">
+                The technology we go deep on — data and analytics platforms, AI and computer vision,
+                cloud and DevOps, IoT and mobile, and the enterprise applications that tie them
+                together. Whichever engagement model you pick above, these are the specialists who
+                build it.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="grid grid-3">
+            {capabilities.map((cap, i) => (
+              <Reveal key={cap.slug} delay={i * 70}>
+                <Link
+                  href={`/capabilities#${cap.slug}`}
+                  className={`card ${styles.capCard}`}
+                  style={{ height: "100%" }}
+                >
+                  <span className="card-icon">
+                    <Icon name={cap.icon as IconName} size={26} />
+                  </span>
+                  <h3>{cap.name}</h3>
+                  <p>{cap.blurb}</p>
+                  <div className={`chips ${styles.capStack}`}>
+                    {cap.stack.slice(0, 4).map((s) => (
+                      <span className="chip" key={s}>
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+
+          <div className={styles.svcFoot}>
+            <Link href="/capabilities" className="link-arrow">
+              All capabilities
+              <Icon name="arrow" size={16} />
+            </Link>
           </div>
         </div>
       </section>

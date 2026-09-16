@@ -3,7 +3,8 @@ import Link from "next/link";
 import Icon, { type IconName } from "@/components/Icon";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import { capabilities, industries } from "@/data/capabilities";
+import { capabilities } from "@/data/capabilities";
+import { industries } from "@/data/industries";
 import styles from "../inner.module.css";
 
 export const metadata: Metadata = {
@@ -86,38 +87,40 @@ export default function CapabilitiesPage() {
         </div>
       </section>
 
+      {/* Industries now live on their own page — this is the hand-off to it. */}
       <section className="section skin-dark noise">
         <div className="container">
           <div className="section-head">
             <Reveal>
               <span className="eyebrow">Industries</span>
               <h2 className="h2" style={{ marginTop: 16 }}>
-                Where the domain
+                The same five pillars,
                 <br />
-                knowledge lives.
+                six sectors of judgement.
               </h2>
             </Reveal>
             <Reveal delay={90}>
               <p className="lead">
-                Technology transfers between industries. Judgement does not. These are the sectors
-                where we arrive already understanding the business problem.
+                Technology transfers between industries. Judgement does not. The Industries page
+                breaks down each sector we know from the inside — what we build there, who we have
+                built it for, and the case studies behind it.
               </p>
+              <div className="chips" style={{ marginTop: 24 }}>
+                {industries.map((ind) => (
+                  <Link href={`/industries#${ind.slug}`} className="chip chip-accent" key={ind.slug}>
+                    {ind.name}
+                  </Link>
+                ))}
+              </div>
+              <Link href="/industries" className="btn" style={{ marginTop: 26 }}>
+                Explore industries
+                <Icon name="arrow" size={16} />
+              </Link>
             </Reveal>
-          </div>
-
-          <div className="grid grid-3">
-            {industries.map((ind, i) => (
-              <Reveal key={ind.name} delay={i * 70}>
-                <div className="card" style={{ height: "100%" }}>
-                  <span className="card-index">{String(i + 1).padStart(2, "0")}</span>
-                  <h3>{ind.name}</h3>
-                  <p>{ind.blurb}</p>
-                </div>
-              </Reveal>
-            ))}
           </div>
         </div>
       </section>
+
     </>
   );
 }

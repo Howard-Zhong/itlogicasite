@@ -88,7 +88,7 @@ export const values = [
 export const certifications = [
   { name: "CMMI Level 3", detail: "Appraised — re-certified 2024" },
   { name: "ISO/IEC 27001", detail: "Information security management" },
-  { name: "Microsoft Gold", detail: "Solutions Partner" },
+  { name: "Microsoft", detail: "Solutions Partner" },
   { name: "Databricks", detail: "Consulting Partner" },
   { name: "Minority Business Enterprise", detail: "Certified MBE" },
   { name: "Salesforce", detail: "Certified Developer" },
@@ -105,7 +105,7 @@ export const milestones = [
   {
     year: "2009",
     title: "Benchmark becomes the U.S. standard",
-    body: "The Benchmark system launches and becomes the U.S. industry standard. ITLogica becomes Elanco's core analytics provider and a Microsoft Gold Partner.",
+    body: "The Benchmark system launches and becomes the U.S. industry standard. ITLogica becomes Elanco's core analytics provider and a Microsoft Solutions Partner.",
   },
   {
     year: "2013",

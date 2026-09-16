@@ -219,6 +219,23 @@
   gap: 10px;
 }
 
+/* Six primary links: tighten the row before it can collide with the logo. */
+@media (min-width: 941px) and (max-width: 1200px) {
+  .inner {
+    gap: 16px;
+  }
+
+  .link {
+    padding: 9px 9px;
+    font-size: 0.88rem;
+  }
+
+  .aiLink {
+    padding: 8px 11px;
+    font-size: 0.79rem;
+  }
+}
+
 @media (max-width: 940px) {
   .links,
   .aiLink,

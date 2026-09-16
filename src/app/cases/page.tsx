@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 };
 
 const summary = [
-  { value: "8", label: "Programmes documented" },
   { value: "1,500+", label: "Feedyards on our platforms" },
   { value: "$10M+", label: "Carbon payments enabled" },
   { value: "2M+", label: "Cattle records processed" },

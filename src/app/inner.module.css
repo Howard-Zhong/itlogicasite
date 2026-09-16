@@ -218,26 +218,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(1) contrast(1.04);
-  transition: filter 0.6s var(--ease), transform 0.9s var(--ease);
-}
-
-.person:hover .portrait img {
-  filter: none;
-  transform: scale(1.05);
-}
-
-.portrait::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 45%, rgba(217, 97, 25, 0.28));
-  opacity: 0;
-  transition: opacity 0.6s var(--ease);
-}
-
-.person:hover .portrait::after {
-  opacity: 1;
 }
 
 .personRole {
@@ -573,4 +553,89 @@
   padding-top: clamp(56px, 7vw, 100px);
   padding-bottom: clamp(40px, 5vw, 74px);
   overflow: hidden;
+}
+
+/* Industries ---------------------------------------------------------------- */
+
+.entryArt {
+  margin: 24px 0 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--ink-black);
+  aspect-ratio: 40 / 23;
+}
+
+.entryArt svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.industryClients {
+  margin-top: 24px;
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.industryClients span {
+  display: inline-block;
+  margin-right: 8px;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, currentColor 66%, transparent);
+}
+
+.industryCases {
+  display: grid;
+  gap: 1px;
+  margin-top: 26px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.industryCase {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px 16px;
+  padding: 16px clamp(16px, 2vw, 22px);
+  background: var(--bg);
+  transition: background 0.3s var(--ease);
+}
+
+.industryCase span {
+  grid-column: 1;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.industryCase strong {
+  grid-column: 1;
+  font-size: 1rem;
+  letter-spacing: -0.015em;
+}
+
+.industryCase svg {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  color: var(--muted);
+  transition: transform 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.industryCase:hover {
+  background: color-mix(in srgb, var(--orange) 7%, var(--bg));
+}
+
+.industryCase:hover svg {
+  transform: translateX(4px);
+  color: var(--orange);
 }

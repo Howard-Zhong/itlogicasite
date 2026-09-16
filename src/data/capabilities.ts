@@ -95,36 +95,3 @@ export const capabilities: Capability[] = [
     icon: "apps",
   },
 ];
-
-export const industries = [
-  {
-    name: "Animal Health",
-    blurb:
-      "Two decades inside the industry — benchmarking, sorting, sustainability and analytics for the largest players in global protein.",
-  },
-  {
-    name: "Agribusiness",
-    blurb:
-      "Moving data forward to information, to knowledge, to decision-making, to competitive advantage across the protein supply chain.",
-  },
-  {
-    name: "Health",
-    blurb:
-      "Reliable and trustworthy solutions for healthcare service providers handling unprecedented volumes of patient and institutional data.",
-  },
-  {
-    name: "Utilities",
-    blurb:
-      "Mission-critical CIS platforms: SmartGrid integration, complex billing, mobile field force management and regulatory change.",
-  },
-  {
-    name: "Retail",
-    blurb:
-      "Agentic AI applied to footfall, personalisation and campaign planning inside large retail complexes.",
-  },
-  {
-    name: "Cross Industry",
-    blurb:
-      "Cloud, data and application engineering that transfers cleanly wherever complex operational data needs to become decisions.",
-  },
-];

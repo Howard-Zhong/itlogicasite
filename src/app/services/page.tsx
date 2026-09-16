@@ -13,7 +13,6 @@ export const metadata: Metadata = {
 };
 
 const proof = [
-  { value: "7", label: "Phase delivery methodology" },
   { value: "24×7", label: "Distributed delivery capability" },
   { value: "CMMI 3", label: "Appraised quality system" },
   { value: "20 yrs", label: "Average recruiter experience" },
