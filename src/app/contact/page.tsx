@@ -3,7 +3,6 @@ import ContactForm from "@/components/ContactForm";
 import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
-import WorldMap from "@/components/WorldMap";
 import { generalEmails, officeList, site } from "@/data/site";
 import styles from "../inner.module.css";
 
@@ -126,32 +125,6 @@ export default function ContactPage() {
               </div>
             </Reveal>
           </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------ World map */}
-      <section className={`${styles.mapSection} noise`}>
-        <div className="container">
-          <div className="section-head">
-            <Reveal>
-              <span className="eyebrow">Where we are</span>
-              <h2 className="h2" style={{ marginTop: 16 }}>
-                Atlanta and Nanjing,
-                <br />
-                twelve hours apart.
-              </h2>
-            </Reveal>
-            <Reveal delay={90}>
-              <p className="lead">
-                The time difference is the point: work handed over at the end of a US day is picked
-                up at the start of a Chinese one. That is what 24×7 delivery actually looks like.
-              </p>
-            </Reveal>
-          </div>
-
-          <Reveal variant="clip">
-            <WorldMap />
-          </Reveal>
         </div>
       </section>
     </>

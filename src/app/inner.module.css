@@ -545,16 +545,6 @@
   color: var(--orange);
 }
 
-.mapSection {
-  background: var(--ink-black);
-  color: #fff;
-  --muted: rgba(255, 255, 255, 0.6);
-  --line: rgba(255, 255, 255, 0.13);
-  padding-top: clamp(56px, 7vw, 100px);
-  padding-bottom: clamp(40px, 5vw, 74px);
-  overflow: hidden;
-}
-
 /* Industries ---------------------------------------------------------------- */
 
 .entryArt {
