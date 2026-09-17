@@ -6,11 +6,14 @@ export type Capability = {
   stack: string[];
   detail: string[];
   icon: "ai" | "data" | "cloud" | "iot" | "apps";
+  /** 16:9 art band shown on the detail page. */
+  image: string;
 };
 
 export const capabilities: Capability[] = [
   {
     slug: "artificial-intelligence",
+    image: "/capabilities/artificial-intelligence.webp",
     name: "Artificial Intelligence",
     kicker: "From raw operational data to automated decisions",
     blurb:
@@ -28,6 +31,7 @@ export const capabilities: Capability[] = [
   },
   {
     slug: "data-analytics",
+    image: "/capabilities/data-analytics.webp",
     name: "Data Analytics",
     kicker: "Data → information → knowledge → decisions",
     blurb:
@@ -45,6 +49,7 @@ export const capabilities: Capability[] = [
   },
   {
     slug: "cloud",
+    image: "/capabilities/cloud.webp",
     name: "Cloud",
     kicker: "Architecture, migration and Zero-Trust security",
     blurb:
@@ -62,6 +67,7 @@ export const capabilities: Capability[] = [
   },
   {
     slug: "iot",
+    image: "/capabilities/iot.webp",
     name: "IoT",
     kicker: "Sensors, edge devices and connected hardware",
     blurb:
@@ -79,6 +85,7 @@ export const capabilities: Capability[] = [
   },
   {
     slug: "mobile-web-development",
+    image: "/capabilities/mobile-web-development.webp",
     name: "Mobile & Web Development",
     kicker: "Customer portals to internal operations tools",
     blurb:

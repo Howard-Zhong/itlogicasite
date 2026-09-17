@@ -563,13 +563,15 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--ink-black);
-  aspect-ratio: 40 / 23;
+  aspect-ratio: 16 / 9;
 }
 
+.entryArt img,
 .entryArt svg {
   display: block;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .industryClients {

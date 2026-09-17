@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Icon, { type IconName } from "@/components/Icon";
-import IndustryArt from "@/components/IndustryArt";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { capabilities } from "@/data/capabilities";
@@ -72,7 +71,8 @@ export default function IndustriesPage() {
                   <p className={styles.entryKicker}>{ind.kicker}</p>
 
                   <div className={styles.entryArt}>
-                    <IndustryArt variant={ind.art} />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={ind.image} alt="" loading="lazy" decoding="async" />
                   </div>
 
                   <div className={styles.entryBody}>

@@ -19,7 +19,11 @@ export const metadata: Metadata = {
     url: site.url,
   },
   icons: {
-    icon: "/brand/itlogica-logo.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48 32x32 16x16", type: "image/x-icon" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/brand/itlogica-logo.png",
   },
 };
 

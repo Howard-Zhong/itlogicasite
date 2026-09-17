@@ -6,11 +6,14 @@ export type Service = {
   body: string[];
   features: string[];
   icon: "delivery" | "managed" | "distributed" | "staff";
+  /** 16:9 art band shown on the detail page. */
+  image: string;
 };
 
 export const services: Service[] = [
   {
     slug: "solution-delivery",
+    image: "/services/solution-delivery.webp",
     name: "Solution Delivery",
     kicker: "End-to-end, fixed horizon",
     blurb:
@@ -30,6 +33,7 @@ export const services: Service[] = [
   },
   {
     slug: "managed-services",
+    image: "/services/managed-services.webp",
     name: "Managed Services",
     kicker: "Your capability, extended",
     blurb:
@@ -49,6 +53,7 @@ export const services: Service[] = [
   },
   {
     slug: "distributed-delivery-model",
+    image: "/services/distributed-delivery-model.webp",
     name: "Distributed Delivery Model",
     kicker: "The engine underneath",
     blurb:
@@ -68,6 +73,7 @@ export const services: Service[] = [
   },
   {
     slug: "staff-augmentation",
+    image: "/services/staff-augmentation.webp",
     name: "Staff Augmentation",
     kicker: "Right people, right place, right time",
     blurb:

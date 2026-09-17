@@ -1,17 +1,10 @@
-export type IndustryArt =
-  | "animal-health"
-  | "agribusiness"
-  | "health"
-  | "utilities"
-  | "retail"
-  | "cross-industry";
-
 export type Industry = {
   slug: string;
   name: string;
   kicker: string;
   blurb: string;
-  art: IndustryArt;
+  /** 16:9 art band shown on the detail page. */
+  image: string;
   icon: string;
   /** What we are actually asked to build in this sector. */
   focus: string[];
@@ -26,11 +19,11 @@ export type Industry = {
 export const industries: Industry[] = [
   {
     slug: "animal-health",
+    image: "/industries/animal-health.webp",
     name: "Animal Health",
     kicker: "Two decades, one industry",
     blurb:
       "Two decades inside the industry — benchmarking, sorting, sustainability and analytics for the largest players in global protein.",
-    art: "animal-health",
     icon: "data",
     focus: [
       "Industry-scale benchmarking databases built on confidential, multi-party data",
@@ -49,11 +42,11 @@ export const industries: Industry[] = [
   },
   {
     slug: "agribusiness",
+    image: "/industries/agribusiness.webp",
     name: "Agribusiness",
     kicker: "From data to decision",
     blurb:
       "Moving data forward to information, to knowledge, to decision-making, to competitive advantage across the protein supply chain.",
-    art: "agribusiness",
     icon: "layers",
     focus: [
       "Nutrition and performance models that put a prediction in the hands of the field team",
@@ -67,11 +60,11 @@ export const industries: Industry[] = [
   },
   {
     slug: "health",
+    image: "/industries/health.webp",
     name: "Health & Veterinary",
     kicker: "Evidence you can act on",
     blurb:
       "Reliable and trustworthy solutions for healthcare and veterinary providers handling unprecedented volumes of patient and clinical data.",
-    art: "health",
     icon: "shield",
     focus: [
       "Wearable and sensor data turned into clinical signal rather than noise",
@@ -85,11 +78,11 @@ export const industries: Industry[] = [
   },
   {
     slug: "utilities",
+    image: "/industries/utilities.webp",
     name: "Utilities",
     kicker: "Mission-critical by definition",
     blurb:
       "Mission-critical CIS platforms: SmartGrid integration, complex billing, mobile field force management and regulatory change.",
-    art: "utilities",
     icon: "iot",
     focus: [
       "Customer Information System implementation, upgrade and long-run support",
@@ -103,11 +96,11 @@ export const industries: Industry[] = [
   },
   {
     slug: "retail",
+    image: "/industries/retail.webp",
     name: "Retail",
     kicker: "Agentic AI on the floor",
     blurb:
       "Agentic AI applied to footfall, personalisation and campaign planning inside large retail complexes.",
-    art: "retail",
     icon: "ai",
     focus: [
       "Agentic routing and path planning across a live retail complex",
@@ -120,11 +113,11 @@ export const industries: Industry[] = [
   },
   {
     slug: "cross-industry",
+    image: "/industries/cross-industry.webp",
     name: "Cross Industry",
     kicker: "Where the pattern repeats",
     blurb:
       "Cloud, data and application engineering that transfers cleanly wherever complex operational data needs to become decisions.",
-    art: "cross-industry",
     icon: "globe",
     focus: [
       "Legacy platform modernisation onto Azure and modern data stacks",

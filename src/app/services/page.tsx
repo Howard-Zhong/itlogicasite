@@ -79,6 +79,10 @@ export default function ServicesPage() {
                   </span>
                   <p className={styles.entryNum}>0{i + 1} — {service.kicker.toUpperCase()}</p>
                   <h2 className={styles.entryTitle}>{service.name}</h2>
+                  <div className={styles.entryArt}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={service.image} alt="" loading="lazy" decoding="async" />
+                  </div>
                   <div className={styles.entryBody}>
                     {service.body.map((p) => (
                       <p key={p.slice(0, 24)}>{p}</p>

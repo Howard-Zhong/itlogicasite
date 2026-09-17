@@ -62,6 +62,10 @@ export default function CapabilitiesPage() {
                   <p className={styles.entryNum}>0{i + 1}</p>
                   <h2 className={styles.entryTitle}>{cap.name}</h2>
                   <p className={styles.entryKicker}>{cap.kicker}</p>
+                  <div className={styles.entryArt}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={cap.image} alt="" loading="lazy" decoding="async" />
+                  </div>
                   <div className={styles.entryBody}>
                     <p>{cap.blurb}</p>
                   </div>
