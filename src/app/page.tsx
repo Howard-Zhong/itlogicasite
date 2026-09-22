@@ -9,18 +9,11 @@ import Reveal from "@/components/Reveal";
 import WordReel from "@/components/WordReel";
 import { cases } from "@/data/cases";
 import { capabilities } from "@/data/capabilities";
-import { certifications, clients, values } from "@/data/company";
+import { certifications, clients, keyStats, values } from "@/data/company";
 import { startPaths, startPromise } from "@/data/logicaai";
 import { services } from "@/data/services";
 import { site } from "@/data/site";
 import styles from "./home.module.css";
-
-const heroStats = [
-  { value: "20+", label: "Years delivering" },
-  { value: "500+", label: "Projects delivered" },
-  { value: "100%", label: "On time, on budget" },
-];
-
 
 export default function HomePage() {
   const [featured, ...rest] = cases;
@@ -73,7 +66,7 @@ export default function HomePage() {
             </div>
 
             <div className={styles.heroStats}>
-              {heroStats.map((s) => (
+              {keyStats.map((s) => (
                 <div key={s.label}>
                   <p className="stat-value">
                     <Counter value={s.value} />

@@ -26,6 +26,14 @@ export const partners = [
   "Databricks",
 ];
 
+/* The three headline numbers. Shared by the home hero and the About overview
+   so the two can never drift apart. */
+export const keyStats = [
+  { value: "20+", label: "Years delivering" },
+  { value: "500+", label: "Projects delivered" },
+  { value: "100%", label: "On time, on budget" },
+];
+
 export const values = [
   {
     title: "Trust",

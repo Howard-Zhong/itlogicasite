@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Counter from "@/components/Counter";
-import Icon from "@/components/Icon";
+import Icon, { type IconName } from "@/components/Icon";
 import Marquee from "@/components/Marquee";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
@@ -8,8 +8,10 @@ import {
   certifications,
   clients,
   companyFacts,
+  keyStats,
   milestones,
   partners,
+  values,
 } from "@/data/company";
 import styles from "../inner.module.css";
 import home from "../home.module.css";
@@ -19,13 +21,6 @@ export const metadata: Metadata = {
   description:
     "Founded in Atlanta in 2002 with a delivery centre in Nanjing — ITLogica's company overview, certifications, milestones, clients and partners.",
 };
-
-const overviewStats = [
-  { value: "20+", label: "Years in the IT industry" },
-  { value: "2002", label: "Founded in Atlanta, Georgia" },
-  { value: "2", label: "Operating centres: USA + China" },
-  { value: "Tier 1", label: "Fortune 500 solution provider" },
-];
 
 export default function AboutPage() {
   return (
@@ -50,7 +45,7 @@ export default function AboutPage() {
       <section className="section">
         <div className="container">
           <div className={styles.statStrip} style={{ marginBottom: "clamp(40px,5vw,72px)" }}>
-            {overviewStats.map((s) => (
+            {keyStats.map((s) => (
               <div className={styles.statCell} key={s.label}>
                 <p className="stat-value" style={{ fontSize: "clamp(1.7rem,3vw,2.5rem)" }}>
                   <Counter value={s.value} />
@@ -121,6 +116,41 @@ export default function AboutPage() {
                 </div>
               </div>
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------- Values */}
+      <section className="section skin-mute">
+        <div className="container">
+          <div className="section-head">
+            <Reveal>
+              <span className="eyebrow">Our Values</span>
+              <h2 className="h2" style={{ marginTop: 16 }}>
+                Three commitments that
+                <br />
+                outlasted every tech cycle.
+              </h2>
+            </Reveal>
+            <Reveal delay={90}>
+              <p className="lead">
+                Twenty years is long enough for the technology to change completely. These have
+                not.
+              </p>
+            </Reveal>
+          </div>
+
+          {/* Same grid as the home page, so the two read as one statement. */}
+          <div className={home.valueGrid}>
+            {values.map((value, i) => (
+              <Reveal key={value.title} delay={i * 70} className={home.valueItem}>
+                <span className={home.valueIcon}>
+                  <Icon name={value.icon as IconName} size={22} />
+                </span>
+                <h3>{value.title}</h3>
+                <p>{value.body}</p>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
