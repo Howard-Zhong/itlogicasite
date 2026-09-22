@@ -152,9 +152,7 @@ export default function HomePage() {
         <div className="container">
           <div className="section-head">
             <Reveal>
-              <span className="eyebrow" style={{ textTransform: "none", letterSpacing: "0.02em" }}>
-                LogicaAI
-              </span>
+              <span className="eyebrow">AI Solution Implementation</span>
               <h2 className="h2" style={{ marginTop: 16 }}>
                 Quick to start.
                 <br />

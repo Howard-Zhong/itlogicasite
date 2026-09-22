@@ -33,7 +33,7 @@ export const values = [
     icon: "shield",
   },
   {
-    title: "Value Delivering",
+    title: "Value",
     body: "Always on time, always on budget — measured against the business outcome rather than hours logged. Milestones and accountability are agreed before the first line of code.",
     icon: "target",
   },
