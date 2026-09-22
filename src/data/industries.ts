@@ -123,7 +123,7 @@ export const industries: Industry[] = [
       "Legacy platform modernisation onto Azure and modern data stacks",
       "Data platforms that consolidate operational systems nobody wants to replace",
       "Enterprise web and mobile applications built to be maintained for a decade",
-      "Forward Deployed Engineers embedded where the business problem actually sits",
+      "Engineers embedded where the business problem actually sits, not adjacent to it",
     ],
     capabilities: ["cloud", "data-analytics", "mobile-web-development"],
     cases: ["eks-azure-cloud-modernization"],

@@ -27,7 +27,8 @@ export type IconName =
   | "mail"
   | "pin"
   | "phone"
-  | "check";
+  | "check"
+  | "plus";
 
 const paths: Record<IconName, ReactElement> = {
   ai: (
@@ -174,6 +175,7 @@ const paths: Record<IconName, ReactElement> = {
     <path d="M6.2 3.5h3l1.5 4-2 1.4a12 12 0 0 0 6.4 6.4l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.2 5.7a2 2 0 0 1 2-2.2z" />
   ),
   check: <path d="m4.5 12.5 5 5 10-11" />,
+  plus: <path d="M12 5v14M5 12h14" />,
 };
 
 type Props = SVGProps<SVGSVGElement> & { name: IconName; size?: number };

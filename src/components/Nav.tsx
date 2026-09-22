@@ -13,7 +13,13 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
 
   /** Pages that open on a dark hero get the inverted nav treatment. */
-  const darkHero = pathname === "/" || pathname === "/contact" || pathname.startsWith("/cases/");
+  const darkHero = pathname === "/contact" || pathname.startsWith("/cases/");
+  /**
+   * The home hero is white: the bar stays transparent over it (so the logo
+   * keeps its full size and colour) but the links are already dark, and the
+   * solid treatment takes over on scroll like everywhere else.
+   */
+  const lightHero = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -33,7 +39,7 @@ export default function Nav() {
     };
   }, [open]);
 
-  const solid = scrolled || !darkHero || open;
+  const solid = scrolled || open || (!darkHero && !lightHero);
 
   return (
     <>

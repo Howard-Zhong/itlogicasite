@@ -3,11 +3,14 @@ import CaseCard from "@/components/CaseCard";
 import Counter from "@/components/Counter";
 import Icon, { type IconName } from "@/components/Icon";
 import Marquee from "@/components/Marquee";
-import WordParticles from "@/components/WordParticles";
+import LogicaPanels from "@/components/LogicaPanels";
+import OfferTabs from "@/components/OfferTabs";
 import Reveal from "@/components/Reveal";
+import WordReel from "@/components/WordReel";
 import { cases } from "@/data/cases";
 import { capabilities } from "@/data/capabilities";
-import { clients, values } from "@/data/company";
+import { certifications, clients, values } from "@/data/company";
+import { startPaths, startPromise } from "@/data/logicaai";
 import { services } from "@/data/services";
 import { site } from "@/data/site";
 import styles from "./home.module.css";
@@ -18,28 +21,6 @@ const heroStats = [
   { value: "100%", label: "On time, on budget" },
 ];
 
-const fdeSteps = [
-  {
-    n: "01",
-    title: "Observe",
-    body: "Our engineers sit inside your operation, combining industry understanding with what they see to surface where AI actually pays.",
-  },
-  {
-    n: "02",
-    title: "Collect",
-    body: "We gather requirements with your team around one question: where in this process does AI create the most value?",
-  },
-  {
-    n: "03",
-    title: "Propose",
-    body: "A tailored solution proposal — objectives, technical path, expected outcomes and a timeline you can hold us to.",
-  },
-  {
-    n: "04",
-    title: "Deliver",
-    body: "The FDE team builds alongside you, measured on business outcomes, and keeps iterating after go-live.",
-  },
-];
 
 export default function HomePage() {
   const [featured, ...rest] = cases;
@@ -47,45 +28,38 @@ export default function HomePage() {
   return (
     <>
       {/* ---------------------------------------------------------------- Hero */}
-      <section className={`${styles.hero} noise`}>
+      <section className={styles.hero}>
         <div className={styles.heroBg} aria-hidden="true" />
         <div className={styles.heroGrid} aria-hidden="true" />
 
         <div className={`container ${styles.heroInner}`}>
+          {/* Badge, title and reel are siblings of one grid so the reel can be
+              centred on the title alone rather than on badge + title. */}
           <div className={styles.heroTop}>
-            <div>
-              <p className={styles.heroBadge}>
-                <b>Since 2002</b>
-                Atlanta · Nanjing — Fortune 500 Tier 1 solution provider
-              </p>
+            <p className={styles.heroBadge}>
+              <b>Since 2002</b>
+              Atlanta · Nanjing
+            </p>
 
-              <h1 className={styles.heroTitle}>
-                <span>
-                  <i>20+ Years</i>
-                </span>
-                <span>
-                  <i>Experience,</i>
-                </span>
-                <span>
-                  <i className={styles.heroAccent}>Always on Time</i>
-                </span>
-                <span>
-                  <i className={styles.heroAccent}>on Budget.</i>
-                </span>
-              </h1>
-            </div>
+            <h1 className={styles.heroTitle}>
+              <span>
+                <i>Pragmatic AI.</i>
+              </span>
+              <span>
+                <i className={styles.heroAccent}>Proven Delivery</i>
+              </span>
+            </h1>
 
             <div className={styles.heroWordsWrap} aria-hidden="true">
-              <WordParticles className={styles.heroWords} />
+              <WordReel className={styles.heroWords} />
             </div>
           </div>
 
           <div className={styles.heroFoot}>
-            <div>
+            <div className={styles.heroFootText}>
               <p className={styles.heroLead}>
-                For two decades we have built the systems that large enterprises run their
-                operations on — data platforms, computer vision, cloud architecture and agentic AI —
-                across animal health, agribusiness, utilities and retail.
+                20+ years, always on time, always on budget — now with AI at the core of how we
+                build.
               </p>
               <div className={styles.heroCtas}>
                 <Link href="/cases" className="btn">
@@ -121,11 +95,7 @@ export default function HomePage() {
       <section className={styles.customers}>
         <div className="container">
           <div className={styles.customersHead}>
-            <span className="eyebrow">Trusted by</span>
-            <p>
-              Global animal health, agribusiness, consumer and utility leaders — several for more
-              than a decade.
-            </p>
+            <span className="eyebrow">A Global Player Trusted by:</span>
           </div>
         </div>
         <Marquee duration={52}>
@@ -138,241 +108,159 @@ export default function HomePage() {
         </Marquee>
       </section>
 
-      {/* ------------------------------------------------------------ Services */}
+      {/* ----------------------------------------------------- Certifications */}
+      <section className="section-tight">
+        <div className="container">
+          <div className={styles.certHead}>
+            <Reveal>
+              <span className="eyebrow">Certifications</span>
+              <h2 className="h3" style={{ marginTop: 14 }}>
+                Qualifications behind the track record
+              </h2>
+            </Reveal>
+            <Reveal delay={90}>
+              <p>
+                Repeatable process is what makes two decades of on-time delivery possible — and what
+                lets a Fortune 500 procurement team say yes.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className={styles.certGrid}>
+            {certifications.map((cert, i) => (
+              <Reveal key={cert.name} delay={i * 50} className={styles.cert}>
+                <strong>{cert.name}</strong>
+                <span>{cert.detail}</span>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------ LogicaAI */}
+      <section className={`section skin-mute ${styles.logica}`}>
+        <div className="container">
+          <div className="section-head">
+            <Reveal>
+              <span className="eyebrow" style={{ textTransform: "none", letterSpacing: "0.02em" }}>
+                LogicaAI
+              </span>
+              <h2 className="h2" style={{ marginTop: 16 }}>
+                Quick to start.
+                <br />
+                Easy to use.
+              </h2>
+              <p className="lead" style={{ marginTop: 22 }}>
+                LogicaAI is the platform we use to put agents into production without a twelve-month
+                programme in front of it. Plug in the data you already have, go after the
+                low-hanging fruit first, and let the business see a working result before it
+                commits to the big build.
+              </p>
+            </Reveal>
+            <Reveal delay={90}>
+              <div className={styles.logicaPoints}>
+                {[
+                  "Just plug in your data — no migration project first",
+                  "Low-hanging fruit first, so value shows up early",
+                  "Visual composition, not a framework to learn",
+                  "Production-grade from the pilot, not after it",
+                ].map((point) => (
+                  <p key={point}>
+                    <Icon name="check" size={17} />
+                    <span>{point}</span>
+                  </p>
+                ))}
+              </div>
+              <div className={styles.heroCtas}>
+                <a className="btn" href={site.aiSiteUrl} target="_blank" rel="noreferrer noopener">
+                  Visit the LogicaAI site
+                  <Icon name="arrow" size={16} />
+                </a>
+              </div>
+            </Reveal>
+          </div>
+
+          <Reveal>
+            <div className={styles.railHead}>
+              <h3>
+                The stack behind <span style={{ color: "var(--orange)" }}>LogicaAI</span>
+              </h3>
+              <span>Hover to look inside</span>
+            </div>
+          </Reveal>
+
+          <Reveal delay={90}>
+            <LogicaPanels />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* -------------------------------------------------- Start AI with Ease */}
       <section className="section">
         <div className="container">
           <div className="section-head">
             <Reveal>
-              <span className="eyebrow">Services</span>
+              <span className="eyebrow">How to begin</span>
               <h2 className="h2" style={{ marginTop: 16 }}>
-                Four ways
-                <br />
-                to engage us.
+                Start AI with Ease
               </h2>
             </Reveal>
             <Reveal delay={90}>
               <p className="lead">
-                Whether you need a project delivered end-to-end, a team that becomes an extension of
-                yours, or one specialist on your floor next month — the engagement model flexes, the
-                delivery discipline does not.
+                Two ways in, both of them short. Pick the one that fits how much of your operation
+                we need to see, and we come back with something you can actually run.
               </p>
             </Reveal>
           </div>
 
-          <div className={styles.svcGrid}>
-            {services.map((service, i) => (
-              <Reveal key={service.slug} delay={i * 80}>
-                <Link href={`/services#${service.slug}`} className="card" style={{ height: "100%" }}>
-                  <span className="card-index">0{i + 1}</span>
-                  <span className="card-icon">
-                    <Icon name={service.icon as IconName} size={26} />
-                  </span>
-                  <h3>{service.name}</h3>
-                  <p>{service.blurb}</p>
-                  <span className="link-arrow">
-                    Explore
-                    <Icon name="arrow" size={15} />
-                  </span>
-                </Link>
+          <div className={styles.startGrid}>
+            {startPaths.map((path, i) => (
+              <Reveal key={path.key} delay={i * 110} className={styles.startCard}>
+                <span className={styles.startStep}>0{i + 1}</span>
+                <span className={styles.startIcon}>
+                  <Icon name={path.icon as IconName} size={26} />
+                </span>
+                <h3>{path.label}</h3>
+                <p className={styles.startTiming}>{path.timing}</p>
+                <p>{path.blurb}</p>
+                <ul>
+                  {path.points.map((point) => (
+                    <li key={point}>
+                      <Icon name="check" size={16} />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
               </Reveal>
             ))}
           </div>
 
-          <div className={styles.svcFoot}>
-            <Link href="/services" className="link-arrow">
-              All services
+          <Reveal className={styles.startPromise}>
+            <Icon name="spark" size={20} />
+            <p>{startPromise}</p>
+            <Link href="/contact" className="btn">
+              Book a discovery session
               <Icon name="arrow" size={16} />
             </Link>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* -------------------------------------------------------- Capabilities */}
+      {/* ------------------------------------------- Services & capabilities */}
       <section className="section skin-mute">
         <div className="container">
-          <div className="section-head">
-            <Reveal>
-              <span className="eyebrow">Capabilities</span>
-              <h2 className="h2" style={{ marginTop: 16 }}>
-                Five things
-                <br />
-                we&rsquo;re deep in.
-              </h2>
-            </Reveal>
-            <Reveal delay={90}>
-              <p className="lead">
-                The technology we go deep on — data and analytics platforms, AI and computer vision,
-                cloud and DevOps, IoT and mobile, and the enterprise applications that tie them
-                together. Whichever engagement model you pick above, these are the specialists who
-                build it.
-              </p>
-            </Reveal>
-          </div>
-
-          <div className="grid grid-3">
-            {capabilities.map((cap, i) => (
-              <Reveal key={cap.slug} delay={i * 70}>
-                <Link
-                  href={`/capabilities#${cap.slug}`}
-                  className={`card ${styles.capCard}`}
-                  style={{ height: "100%" }}
-                >
-                  <span className="card-icon">
-                    <Icon name={cap.icon as IconName} size={26} />
-                  </span>
-                  <h3>{cap.name}</h3>
-                  <p>{cap.blurb}</p>
-                  <div className={`chips ${styles.capStack}`}>
-                    {cap.stack.slice(0, 4).map((s) => (
-                      <span className="chip" key={s}>
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-
-          <div className={styles.svcFoot}>
-            <Link href="/capabilities" className="link-arrow">
-              All capabilities
-              <Icon name="arrow" size={16} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------ AI & FDE */}
-      <section className={`section skin-dark noise ${styles.ai}`}>
-        <span className={styles.aiGlow} aria-hidden="true" />
-        <div className="container">
-          <div className={styles.aiTop}>
-            <Reveal>
-              <span className="eyebrow">AI &amp; Forward Deployed Engineering</span>
-              <h2 className="h2" style={{ margin: "16px 0 20px" }}>
-                Beyond concepts — we take AI from the lab to the production line.
-              </h2>
-              <p className="lead">
-                An AI Agent is a digital employee that understands your business: give it a goal and
-                it reasons, calls tools, acts, and adjusts until the job is done. LogicaAI is how
-                enterprises recruit and govern that workforce safely — every agent fluent in your
-                domain, bound by your rules, wired into your existing systems.
-              </p>
-              <div className={styles.heroCtas}>
-                <a
-                  className="btn"
-                  href={site.aiSiteUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  Visit our AI site
-                  <Icon name="arrow" size={16} />
-                </a>
-                <Link href="/cases/intelligent-path-planning-shopping-malls" className="btn btn-ghost">
-                  See an AI case study
-                </Link>
-              </div>
-            </Reveal>
-
-            <Reveal delay={120} className={styles.aiCompare}>
-              <div className={styles.aiCard}>
-                <span className={styles.aiCardMark}>
-                  <Icon name="apps" size={22} />
-                </span>
-                <div>
-                  <h4>Traditional software</h4>
-                  <strong>A vending machine</strong>
-                  <p>
-                    Press a button, get that drink. Rigid logic, fixed paths, nothing outside what
-                    was anticipated.
-                  </p>
-                </div>
-              </div>
-              <div className={`${styles.aiCard} ${styles.aiCardHot}`}>
-                <span className={styles.aiCardMark}>
-                  <Icon name="spark" size={22} />
-                </span>
-                <div>
-                  <h4>AI Agent</h4>
-                  <strong>A specialist assistant</strong>
-                  <p>
-                    Hand it a task and it researches, analyses and drafts — then hands you back
-                    finished work.
-                  </p>
-                </div>
-              </div>
-              <div className={styles.aiCard}>
-                <span className={styles.aiCardMark}>
-                  <Icon name="shield" size={22} />
-                </span>
-                <div>
-                  <h4>LogicaAI</h4>
-                  <strong>Agents you can actually deploy</strong>
-                  <p>
-                    Orchestration, enterprise knowledge base, MCP integration, GuardRail safety and
-                    full lifecycle management.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-
-          <div className={styles.fde}>
-            <Reveal>
-              <div className={styles.capHead}>
-                <div>
-                  <span className="eyebrow">FDE</span>
-                  <h3 style={{ fontSize: "clamp(1.5rem,2.6vw,2.2rem)", marginTop: 8 }}>
-                    Forward Deployed Engineer — a way of working, not a job title
-                  </h3>
-                </div>
-              </div>
-            </Reveal>
-
-            <div className={styles.fdeSteps}>
-              {fdeSteps.map((step, i) => (
-                <Reveal key={step.n} delay={i * 90} className={styles.fdeStep}>
-                  <span>{step.n}</span>
-                  <strong>{step.title}</strong>
-                  <p>{step.body}</p>
-                </Reveal>
-              ))}
-            </div>
-
-            <div className={styles.fdeWhy}>
-              {[
-                {
-                  t: "Embedded, not adjacent",
-                  b: "FDEs join your stand-ups and planning sessions and carry the same accountability your own team does.",
-                },
-                {
-                  t: "Outcome-priced, not day-rate",
-                  b: "Success is measured against the business result, not against hours logged on a timesheet.",
-                },
-                {
-                  t: "Bridging the gap",
-                  b: "Between people who know the platform and people who know the business — which is where most AI projects stall.",
-                },
-              ].map((item, i) => (
-                <Reveal key={item.t} delay={i * 80} className={styles.fdeWhyItem}>
-                  <strong>{item.t}</strong>
-                  <p>{item.b}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
+          <OfferTabs services={services} capabilities={capabilities} />
         </div>
       </section>
 
       {/* ------------------------------------------------------------- Values */}
-      <section className="section skin-mute">
+      <section className="section">
         <div className="container">
           <div className="section-head">
             <Reveal>
               <span className="eyebrow">Our Values</span>
               <h2 className="h2" style={{ marginTop: 16 }}>
-                Six commitments that
+                Three commitments that
                 <br />
                 outlasted every tech cycle.
               </h2>

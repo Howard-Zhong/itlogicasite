@@ -1,0 +1,87 @@
+/* Services and Capabilities share one region; the tabs swap the deck. */
+.tabs {
+  display: inline-flex;
+  gap: 4px;
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: var(--bg);
+}
+
+.tab {
+  appearance: none;
+  border: 0;
+  border-radius: 100px;
+  padding: 10px 22px;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  transition: color var(--t-fast), background var(--t-fast);
+}
+
+.tab:hover {
+  color: var(--fg);
+}
+
+.active {
+  background: var(--orange);
+  color: #fff;
+}
+
+.active:hover {
+  color: #fff;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px 32px;
+  margin-bottom: clamp(30px, 3.6vw, 46px);
+}
+
+.headText {
+  max-width: 54ch;
+}
+
+.headText h2 {
+  margin: 14px 0 12px;
+}
+
+.headText p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/*
+ * The hidden deck is taken out of flow entirely, so the section is exactly as
+ * tall as the panel on show — stacking both left a dead band under the shorter
+ * one. The wrapper animates between the two heights so the swap is not a jump.
+ */
+.deck {
+  position: relative;
+  transition: height 0.4s var(--ease);
+}
+
+.panel {
+  transition: opacity 0.3s var(--ease);
+}
+
+.panel[aria-hidden="true"] {
+  position: absolute;
+  inset: 0 0 auto 0;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: clamp(24px, 2.6vw, 34px);
+}

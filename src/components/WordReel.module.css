@@ -1,0 +1,263 @@
+/*
+ * Capability reel.
+ *
+ * Each letter hinges on its own axis like a flap board and rises into a
+ * clipped row; underneath, one segment per capability shows the whole set
+ * and fills over the dwell. Everything that moves is a transform, so the
+ * reel never competes with the counters on the left for the main thread.
+ */
+
+.reel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: var(--reel-h, 240px);
+  width: 100%;
+}
+
+.block {
+  position: relative;
+  z-index: 1;
+  width: min(100%, var(--reel-w, 27rem));
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3.4vh, 34px);
+}
+
+/* ---------- the word ---------- */
+
+.window {
+  position: relative;
+  height: 1.16em;
+  font-size: var(--word-size, 2.4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+
+.line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: flex-start;
+  white-space: nowrap;
+}
+
+.cell {
+  display: inline-block;
+  overflow: hidden;
+  /* Room below the baseline so the descenders in "Agentic" and "Analytics"
+     live inside the clip instead of being cut by it. */
+  padding-bottom: 0.26em;
+  margin-bottom: -0.26em;
+  perspective: 520px;
+}
+
+.glyph {
+  display: inline-block;
+  color: var(--orange);
+  transform-origin: 50% 45%;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+.in .glyph {
+  animation: flapIn 0.56s cubic-bezier(0.28, 0.84, 0.3, 1) both;
+}
+
+.out .glyph {
+  animation: flapOut 0.38s cubic-bezier(0.55, 0, 0.85, 0.2) both;
+}
+
+@keyframes flapIn {
+  from {
+    transform: translateY(78%) rotateX(-74deg);
+    opacity: 0;
+  }
+  55% {
+    opacity: 1;
+  }
+  to {
+    transform: translateY(0) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes flapOut {
+  from {
+    transform: translateY(0) rotateX(0deg);
+    opacity: 1;
+  }
+  60% {
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-84%) rotateX(78deg);
+    opacity: 0;
+  }
+}
+
+/* ---------- the rail ---------- */
+
+.rail {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.segs {
+  display: flex;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.seg {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--ink) 13%, transparent);
+  transition: background 0.4s ease;
+}
+
+.seg[data-state="done"] {
+  background: color-mix(in srgb, var(--orange) 30%, transparent);
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--orange-bright), var(--orange));
+  animation-name: fillSeg;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fillSeg {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.count {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--ink) 52%, transparent);
+  flex: none;
+}
+
+.count i {
+  font-style: normal;
+  margin: 0 0.15em;
+  color: color-mix(in srgb, var(--ink) 26%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glyph,
+  .fill {
+    animation: none;
+  }
+  .glyph {
+    transform: none;
+    opacity: 1;
+  }
+  .fill {
+    transform: scaleX(1);
+  }
+}
+
+/* ---------- the motif behind the word ---------- */
+
+.artLayer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.art {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: min(110%, var(--art-w, 31rem));
+  aspect-ratio: 208 / 150;
+  /* Fades its own edges so the motif dissolves into the hero instead of
+     ending on a hard rectangle. The mask sits above centre so the lower half
+     is gone before it reaches the progress rail. */
+  -webkit-mask-image: radial-gradient(64% 58% at 50% 43%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(64% 58% at 50% 43%, #000 30%, transparent 100%);
+  will-change: transform, opacity;
+}
+
+.scrim {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: 116%;
+  height: 300%;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    54% 40% at 50% 50%,
+    color-mix(in srgb, var(--white) 82%, transparent) 0%,
+    color-mix(in srgb, var(--white) 46%, transparent) 46%,
+    transparent 74%
+  );
+}
+
+.artIn {
+  animation: artIn 0.82s cubic-bezier(0.2, 0.8, 0.25, 1) both;
+}
+
+.artOut {
+  animation: artOut 0.42s ease-in both;
+}
+
+@keyframes artIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes artOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .artIn,
+  .artOut {
+    animation: none;
+  }
+  .artOut {
+    opacity: 0;
+  }
+}

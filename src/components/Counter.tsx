@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import styles from "./Counter.module.css";
 
 /**
  * Counts up any numeric portion of a string ("+52%", "1,500+", "$10M+"),
@@ -58,5 +59,12 @@ export default function Counter({ value, duration = 1400 }: { value: string; dur
     };
   }, [value, duration]);
 
-  return <span ref={ref}>{display}</span>;
+  return (
+    <span ref={ref} className={styles.counter}>
+      <span className={styles.ghost} aria-hidden="true">
+        {value}
+      </span>
+      <span>{display}</span>
+    </span>
+  );
 }

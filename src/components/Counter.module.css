@@ -1,0 +1,18 @@
+/*
+ * The animated value and a hidden copy of the final value share one grid cell,
+ * so the element is always as wide as the finished number. Without this the
+ * column grows digit by digit while counting, and everything beside it
+ * (the hero lead paragraph) reflows on almost every frame.
+ */
+.counter {
+  display: inline-grid;
+  justify-items: start;
+}
+
+.counter > * {
+  grid-area: 1 / 1;
+}
+
+.ghost {
+  visibility: hidden;
+}

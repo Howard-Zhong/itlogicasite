@@ -10,7 +10,6 @@ import {
   companyFacts,
   milestones,
   partners,
-  team,
 } from "@/data/company";
 import styles from "../inner.module.css";
 import home from "../home.module.css";
@@ -18,7 +17,7 @@ import home from "../home.module.css";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Founded in Atlanta in 2002 with a delivery centre in Nanjing — ITLogica's company overview, management team, certifications, milestones, clients and partners.",
+    "Founded in Atlanta in 2002 with a delivery centre in Nanjing — ITLogica's company overview, certifications, milestones, clients and partners.",
 };
 
 const overviewStats = [
@@ -126,56 +125,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ----------------------------------------------------- Management team */}
-      <section className="section skin-dark noise" id="team">
-        <div className="container">
-          <div className="section-head">
-            <Reveal>
-              <span className="eyebrow">Management Team</span>
-              <h2 className="h2" style={{ marginTop: 16 }}>
-                The people accountable
-                <br />
-                for the outcome.
-              </h2>
-            </Reveal>
-            <Reveal delay={90}>
-              <p className="lead">
-                Consulting backgrounds from Ernst &amp; Young, Capgemini and Accenture, engineering
-                from Georgia Tech, and twenty years of delivering complex programmes end to end.
-              </p>
-            </Reveal>
-          </div>
-
-          <div className={styles.teamGrid}>
-            {team.map((person, i) => (
-              <Reveal key={person.name} delay={i * 110} className={styles.person}>
-                <div className={styles.portrait}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={person.photo} alt={person.name} loading="lazy" />
-                </div>
-                <div>
-                  <h3 className="h3">
-                    {person.name}
-                    {person.chineseName && (
-                      <span style={{ color: "var(--muted)", fontWeight: 500 }}>
-                        {" "}
-                        {person.chineseName}
-                      </span>
-                    )}
-                  </h3>
-                  <p className={styles.personRole}>{person.role}</p>
-                  <ul className={styles.personBio}>
-                    {person.bio.map((b) => (
-                      <li key={b}>{b}</li>
-                    ))}
-                  </ul>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ------------------------------------------ Certifications & milestones */}
       <section className="section" id="certifications">
         <div className="container">
@@ -197,9 +146,11 @@ export default function AboutPage() {
           </div>
 
           <Reveal>
-            <div className={styles.certGrid}>
+            {/* Same four-across grid as the home page, so eight certificates
+                land as two full rows on both. */}
+            <div className={home.certGrid}>
               {certifications.map((c) => (
-                <div className={styles.cert} key={c.name}>
+                <div className={home.cert} key={c.name}>
                   <strong>{c.name}</strong>
                   <span>{c.detail}</span>
                 </div>

@@ -1,0 +1,56 @@
+/* One abstract motif per capability. Kept to line work at low opacity so it
+   reads as a watermark behind the word, never as a competing graphic. */
+
+/* Height comes from the viewBox ratio, never from the parent: the reel hangs
+   this svg off a zero-height layer, where height:100% would collapse it. */
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ink,
+.hot,
+.faint {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ink {
+  stroke: color-mix(in srgb, var(--ink) 22%, transparent);
+  stroke-width: 1.5;
+}
+
+.faint {
+  stroke: color-mix(in srgb, var(--ink) 11%, transparent);
+  stroke-width: 1.1;
+}
+
+.hot {
+  stroke: color-mix(in srgb, var(--orange) 33%, transparent);
+  stroke-width: 1.7;
+}
+
+.inkFill {
+  fill: color-mix(in srgb, var(--ink) 15%, transparent);
+  stroke: none;
+}
+
+.hotFill {
+  fill: color-mix(in srgb, var(--orange) 26%, transparent);
+  stroke: none;
+}
+
+.bar {
+  stroke: color-mix(in srgb, var(--ink) 15%, transparent);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.barHot {
+  stroke: color-mix(in srgb, var(--orange) 28%, transparent);
+  stroke-width: 6;
+  stroke-linecap: round;
+}

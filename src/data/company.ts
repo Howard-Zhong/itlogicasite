@@ -26,62 +26,21 @@ export const partners = [
   "Databricks",
 ];
 
-export const team = [
-  {
-    name: "Chi Zhang",
-    chineseName: "张驰",
-    role: "General Manager, Partner",
-    photo: "/team/chi-zhang.jpg",
-    bio: [
-      "BA in English Language & Literature, Shanghai International Studies University; MBA, University of Florida",
-      "AI and Analytics management certificate, The Wharton School, University of Pennsylvania; PMP certified",
-      "Previously with Ernst & Young and Capgemini Consulting",
-      "Over twenty years in management consulting and enterprise management, with a track record of delivering complex large-scale programmes",
-    ],
-  },
-  {
-    name: "Marcel Sarzen",
-    role: "Partner",
-    photo: "/team/marcel-sarzen.jpg",
-    bio: [
-      "MS in Electrical Engineering & Computer Science, Georgia Institute of Technology",
-      "Founder and CEO of AgLogica",
-      "Previously with Accenture Consulting",
-      "Led the acquisition of KamTech (USA) and served as Chairman of the Board",
-    ],
-  },
-];
-
 export const values = [
   {
-    title: "Always on Time, Always on Budget",
-    body: "It is not a slogan, it is the commitment every engagement is measured against. Milestones, deliverables and accountability are defined before the first line of code.",
-    icon: "clock",
+    title: "Trust",
+    body: "Twenty years of accounts that renew, CMMI Level 3 process and ISO/IEC 27001 security. Clients hand us the systems they cannot afford to have go wrong, and we have not given them a reason to regret it.",
+    icon: "shield",
   },
   {
-    title: "Your Success Is Our Metric",
-    body: "We measure ourselves by our clients' outcomes, not by hours billed. That is why so many of our accounts have stayed with us for more than a decade.",
+    title: "Value Delivering",
+    body: "Always on time, always on budget — measured against the business outcome rather than hours logged. Milestones and accountability are agreed before the first line of code.",
     icon: "target",
   },
   {
-    title: "Domain Depth Before Technology",
-    body: "Two decades inside animal health, agribusiness and utilities means we arrive understanding the business problem, not just the technology stack.",
-    icon: "layers",
-  },
-  {
-    title: "Global View, Local Execution",
-    body: "Atlanta headquarters and a Nanjing R&D and delivery centre give clients 24×7 momentum and genuine cross-cultural delivery capability.",
-    icon: "globe",
-  },
-  {
-    title: "Built to Be Handed Over",
-    body: "Open standards, open source where possible and microservice boundaries — we design to reduce vendor lock-in, including our own.",
-    icon: "handover",
-  },
-  {
-    title: "Quality as a System",
-    body: "CMMI Level 3 appraised and ISO/IEC 27001 certified. Repeatable process is what makes a twenty-year track record possible.",
-    icon: "shield",
+    title: "Innovation",
+    body: "Computer vision on the farm floor, carbon accounting at industry scale, agentic AI in production. We bring new technology in where it pays, not where it demos well.",
+    icon: "spark",
   },
 ];
 

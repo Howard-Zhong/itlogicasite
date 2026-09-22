@@ -70,7 +70,7 @@ export default function Footer() {
               </span>
               <span>
                 <h4>AI Solution Delivery</h4>
-                <p>Agentic AI, LogicaAI and Forward Deployed Engineering</p>
+                <p>Agentic AI, LogicaAI and enterprise agent delivery</p>
               </span>
               <Icon name="arrow" size={20} />
             </a>
