@@ -212,6 +212,8 @@
    holds — only the display step gives way, and the feature step with it. */
 @media (min-width: 941px) and (max-height: 820px) {
   .hero {
+    /* Give the client-logo band the room the wider eyebrow gap now needs. */
+    min-height: min(76svh, 720px);
     --t-display: clamp(2.35rem, 4.6vw, 4.4rem);
     --t-feature: clamp(1.5rem, 2.6vw, 2.35rem);
     --t-body: 1rem;
@@ -365,7 +367,7 @@
   flex-wrap: wrap;
   align-items: baseline;
   gap: 12px 26px;
-  margin-bottom: 16px;
+  margin-bottom: clamp(26px, 2.6vw, 38px);
 }
 
 .customersHead p {
