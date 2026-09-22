@@ -19,13 +19,15 @@
   --t-micro: 0.72rem;
 
   position: relative;
-  /* The title is two lines now; the old 100svh box left a lot of slack above
-     the content, since everything is bottom-aligned. */
+  /* The content block is centred in the space the nav leaves behind: the top
+     padding carries the nav's own height plus the same breathing room the
+     bottom gets, so whatever slack is left splits evenly above and below. */
+  --hero-pad: clamp(26px, 3vw, 44px);
   min-height: min(80svh, 720px);
   display: flex;
-  align-items: flex-end;
-  padding-top: calc(var(--nav-h) + 14px);
-  padding-bottom: clamp(26px, 3vw, 40px);
+  align-items: center;
+  padding-top: calc(var(--nav-h) + var(--hero-pad));
+  padding-bottom: var(--hero-pad);
   background: var(--white);
   color: var(--ink);
   overflow: hidden;

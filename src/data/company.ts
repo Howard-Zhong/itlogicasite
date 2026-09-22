@@ -45,7 +45,7 @@ export const values = [
 ];
 
 export const certifications = [
-  { name: "CMMI Level 3", detail: "Appraised — re-certified 2024" },
+  { name: "CMMI Level 3", detail: "Defined. Managed. Measured. Consistent." },
   { name: "ISO/IEC 27001", detail: "Information security management" },
   { name: "Microsoft", detail: "Solutions Partner" },
   { name: "Databricks", detail: "Consulting Partner" },
