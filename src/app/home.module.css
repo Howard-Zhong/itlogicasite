@@ -603,6 +603,21 @@
   background: color-mix(in srgb, var(--orange) 6%, var(--bg));
 }
 
+/* Every logo ships on the same canvas, so one height lines all eight up on a
+   common baseline and leaves the same gap above the name. The marks are
+   knocked out to transparency, so the hover tint runs behind them. */
+.certLogo {
+  display: block;
+  /* The canvas is 300x110, so this box is exactly its shape: every logo then
+     gets an identical frame rather than one stretched by the card width. */
+  height: 58px;
+  width: 158px;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left center;
+  margin-bottom: 14px;
+}
+
 .cert strong {
   font-size: 1.02rem;
   letter-spacing: -0.02em;

@@ -151,6 +151,15 @@ export default function AboutPage() {
             <div className={home.certGrid}>
               {certifications.map((c) => (
                 <div className={home.cert} key={c.name}>
+                  <img
+                    className={home.certLogo}
+                    src={c.logo}
+                    alt=""
+                    width={300}
+                    height={110}
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <strong>{c.name}</strong>
                   <span>{c.detail}</span>
                 </div>

@@ -129,6 +129,16 @@ export default function HomePage() {
           <div className={styles.certGrid}>
             {certifications.map((cert, i) => (
               <Reveal key={cert.name} delay={i * 50} className={styles.cert}>
+                {/* Decorative: the name sits right below it in text. */}
+                <img
+                  className={styles.certLogo}
+                  src={cert.logo}
+                  alt=""
+                  width={300}
+                  height={110}
+                  loading="lazy"
+                  decoding="async"
+                />
                 <strong>{cert.name}</strong>
                 <span>{cert.detail}</span>
               </Reveal>

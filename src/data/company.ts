@@ -44,15 +44,30 @@ export const values = [
   },
 ];
 
+/* Every logo is pre-normalised onto the same 300x110 transparent canvas and
+   scaled so the marks carry equal optical weight, which is why the markup can
+   size them all identically. */
 export const certifications = [
-  { name: "CMMI Level 3", detail: "Defined. Managed. Measured. Consistent." },
-  { name: "ISO/IEC 27001", detail: "Information security management" },
-  { name: "Microsoft", detail: "Solutions Partner" },
-  { name: "Databricks", detail: "Consulting Partner" },
-  { name: "Minority Business Enterprise", detail: "Certified MBE" },
-  { name: "Salesforce", detail: "Certified Developer" },
-  { name: "MultiSpeak", detail: "Participating Vendor" },
-  { name: "PMP", detail: "Certified project leadership" },
+  {
+    name: "CMMI Level 3",
+    detail: "Defined. Managed. Measured. Consistent.",
+    logo: "/certs/cmmi-level-3.webp",
+  },
+  {
+    name: "ISO/IEC 27001",
+    detail: "Information security management",
+    logo: "/certs/iso-27001.webp",
+  },
+  { name: "Microsoft", detail: "Solutions Partner", logo: "/certs/microsoft.webp" },
+  { name: "Databricks", detail: "Consulting Partner", logo: "/certs/databricks.webp" },
+  {
+    name: "Minority Business Enterprise",
+    detail: "Certified MBE",
+    logo: "/certs/mbe.webp",
+  },
+  { name: "Salesforce", detail: "Certified Developer", logo: "/certs/salesforce.webp" },
+  { name: "MultiSpeak", detail: "Participating Vendor", logo: "/certs/multispeak.webp" },
+  { name: "PMP", detail: "Certified project leadership", logo: "/certs/pmp.webp" },
 ];
 
 export const milestones = [
