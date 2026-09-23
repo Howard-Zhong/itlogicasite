@@ -1,5 +1,4 @@
 import Link from "next/link";
-import CaseArt from "./CaseArt";
 import Icon from "./Icon";
 import type { CaseStudy } from "@/data/cases";
 import styles from "./CaseCard.module.css";
@@ -17,7 +16,8 @@ export default function CaseCard({
       className={`${styles.card} ${featured ? styles.featured : ""}`}
     >
       <div className={styles.media}>
-        <CaseArt variant={study.art} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={study.image} alt="" loading="lazy" decoding="async" />
         <span className={styles.sector}>{study.sector}</span>
         <span className={styles.headline}>
           <span className={styles.headlineValue}>{study.headline.value}</span>

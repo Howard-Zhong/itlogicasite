@@ -4,17 +4,16 @@
 
 .hero {
   /* ---------------------------------------------------------------- type
-     One ladder for the whole hero. Every step is a real jump, so nothing
-     reads as an accidental near-match:
-       display  81.6px  the headline, alone at the top
-       feature  43.2px  reel word AND stat value — peers, same tier
-       body     18.4px  the lede
-       meta     14px    badge, stat labels, buttons
-       micro    11.5px  badge pill, reel counter
+     One ladder for the whole hero:
+       display  the headline, inside the ring
+       feature  the stat values
+       body     the lede
+       meta     badge, stat labels, buttons
+       micro    the badge pill
      Sizes quoted at 1440. */
-  --t-display: clamp(2.5rem, 5.9vw, 5.1rem);
-  --t-feature: clamp(1.65rem, 3.1vw, 2.7rem);
-  --t-body: clamp(1rem, 1.3vw, 1.15rem);
+  --t-display: clamp(2.2rem, 4.6vw, 4.2rem);
+  --t-feature: clamp(1.6rem, 2.6vw, 2.35rem);
+  --t-body: clamp(1.05rem, 1.35vw, 1.22rem);
   --t-meta: 0.875rem;
   --t-micro: 0.72rem;
 
@@ -22,8 +21,10 @@
   /* The content block is centred in the space the nav leaves behind: the top
      padding carries the nav's own height plus the same breathing room the
      bottom gets, so whatever slack is left splits evenly above and below. */
-  --hero-pad: clamp(26px, 3vw, 44px);
-  min-height: min(80svh, 720px);
+  --hero-pad: clamp(18px, 2vw, 28px);
+  /* A full screen: the ring is the page's opening statement, and the content
+     is centred in what the nav leaves of it. */
+  min-height: 100svh;
   display: flex;
   align-items: center;
   padding-top: calc(var(--nav-h) + var(--hero-pad));
@@ -39,8 +40,8 @@
   inset: 0;
   z-index: -3;
   background:
-    radial-gradient(78% 64% at 82% 2%, rgba(240, 135, 58, 0.13), transparent 60%),
-    radial-gradient(66% 58% at 2% 104%, rgba(217, 97, 25, 0.06), transparent 62%),
+    radial-gradient(70% 58% at 50% 6%, rgba(240, 135, 58, 0.14), transparent 62%),
+    radial-gradient(64% 56% at 12% 104%, rgba(217, 97, 25, 0.06), transparent 64%),
     linear-gradient(165deg, #fffdfb 0%, #ffffff 50%, #fffdfc 100%);
 }
 
@@ -49,7 +50,7 @@
   position: absolute;
   inset: -20%;
   background: conic-gradient(
-    from 180deg at 70% 20%,
+    from 180deg at 50% 32%,
     rgba(240, 135, 58, 0.1),
     transparent 28%,
     rgba(217, 97, 25, 0.08) 52%,
@@ -66,54 +67,6 @@
   }
 }
 
-.heroTop {
-  display: grid;
-  grid-template-columns: minmax(0, 1.14fr) minmax(0, 0.86fr);
-  grid-template-rows: auto auto;
-  align-items: center;
-  column-gap: clamp(16px, 2.4vw, 40px);
-  row-gap: 0;
-}
-
-.heroBadge {
-  grid-column: 1;
-  grid-row: 1;
-  justify-self: start;
-}
-
-.heroTitle {
-  grid-column: 1;
-  grid-row: 2;
-}
-
-/* Row 2 only — so the reel centres on the title, not on badge + title. */
-.heroWordsWrap {
-  grid-column: 2;
-  grid-row: 2;
-}
-
-.heroWordsWrap {
-  position: relative;
-  width: 100%;
-  min-width: 0;
-  /* Soft halo so the word field reads as part of the hero, not a pasted box. */
-  background: radial-gradient(
-    62% 62% at 50% 50%,
-    rgba(240, 135, 58, 0.1),
-    transparent 72%
-  );
-}
-
-.heroWords {
-  /* Height comes from the content; the motif is absolutely positioned and
-     must not pad the row out past the title. */
-  --reel-h: auto;
-  --reel-w: 29rem;
-  --art-w: 31rem;
-  --word-size: var(--t-feature);
-  width: 100%;
-}
-
 .heroGrid {
   position: absolute;
   inset: 0;
@@ -121,20 +74,28 @@
   background-image: linear-gradient(rgba(31, 33, 33, 0.055) 1px, transparent 1px),
     linear-gradient(90deg, rgba(31, 33, 33, 0.055) 1px, transparent 1px);
   background-size: 90px 90px;
-  -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 25%, transparent 78%);
-  mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 25%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 72% at 50% 45%, #000 22%, transparent 76%);
+  mask-image: radial-gradient(ellipse 80% 72% at 50% 45%, #000 22%, transparent 76%);
   pointer-events: none;
 }
 
+/* One centred stack: badge, the orbit with the headline inside it, then the
+   supporting row. */
 .heroInner {
   position: relative;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(16px, 2vw, 28px);
 }
 
 .heroBadge {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  margin: 0;
   padding: 8px 16px 8px 10px;
   border: 1px solid rgba(31, 33, 33, 0.14);
   border-radius: 100px;
@@ -143,7 +104,6 @@
   font-size: var(--t-meta);
   font-weight: 600;
   color: var(--gray-700);
-  margin-bottom: 20px;
 }
 
 .heroBadge b {
@@ -158,21 +118,31 @@
   letter-spacing: 0.04em;
 }
 
+/* ---------------------------------------------------------------- the orbit */
+
+.heroWords {
+  /* Ring geometry. --orb-rx has to leave the headline clear of the balls at
+     three and nine o'clock; --orb-ry has to leave it clear of twelve and six. */
+  --orb-rx: clamp(258px, 29vw, 424px);
+  --orb-ry: clamp(130px, 12vw, 176px);
+  --orb-dot: clamp(92px, 7.6vw, 112px);
+  --core-art-w: clamp(210px, 23vw, 330px);
+  width: 100%;
+}
+
 .heroTitle {
   font-size: var(--t-display);
-  line-height: 0.95;
+  line-height: 0.98;
   letter-spacing: -0.045em;
   font-weight: 800;
-  max-width: 16ch;
   margin: 0;
 }
 
 .heroTitle span {
   display: block;
-  /* The rise-in mask. The 0.95 line-height sits tighter than the font's own
-     content box, so the mask has to be extended past the baseline or it
-     shears the descenders ("g" in Budget); the negative margin keeps the
-     lines as tight as before. */
+  /* The rise-in mask. The tight line-height sits inside the font's own content
+     box, so the mask has to be extended past the baseline or it shears the
+     descenders ("g" in Agentic); the negative margin keeps the lines tight. */
   overflow: hidden;
   padding-bottom: 0.2em;
   margin-bottom: -0.2em;
@@ -194,12 +164,6 @@
 .heroTitle span:nth-child(2) i {
   animation-delay: 0.16s;
 }
-.heroTitle span:nth-child(3) i {
-  animation-delay: 0.27s;
-}
-.heroTitle span:nth-child(4) i {
-  animation-delay: 0.38s;
-}
 
 @keyframes riseIn {
   from {
@@ -208,75 +172,73 @@
   }
 }
 
-/* Short laptop viewports: keep the whole hero above the fold. The ladder
-   holds — only the display step gives way, and the feature step with it. */
-@media (min-width: 941px) and (max-height: 820px) {
-  .hero {
-    /* Give the client-logo band the room the wider eyebrow gap now needs. */
-    min-height: min(76svh, 720px);
-    --t-display: clamp(2.35rem, 4.6vw, 4.4rem);
-    --t-feature: clamp(1.5rem, 2.6vw, 2.35rem);
-    --t-body: 1rem;
-  }
-}
-
 .heroAccent {
   background: linear-gradient(96deg, var(--orange-bright), var(--orange) 45%, var(--orange-dark));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  /* The gradient is only painted inside this element's box, and the 0.95
-     line-height leaves the descenders ("g" in Budget, "y" in Always) hanging
-     below it — without this they get no paint at all and disappear. The
-     negative margin keeps the line spacing unchanged. */
+  /* background-clip:text paints only inside the box, so the descenders need
+     the box extended past the baseline or they get no paint at all. */
   padding-bottom: 0.2em;
   margin-bottom: -0.2em;
 }
 
-.heroFoot {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: clamp(22px, 4vw, 60px);
-  /* Both columns span the row, so the lede and the divider start and end on
-     the same two lines instead of missing each other by a few pixels. */
-  align-items: stretch;
-  margin-top: clamp(22px, 2.8vw, 42px);
-}
+/* ------------------------------------------------------- under the ring */
 
-.heroFootText {
+.heroFoot {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: clamp(16px, 2vw, 26px);
+  width: 100%;
 }
 
 .heroLead {
   font-size: var(--t-body);
   line-height: 1.55;
   color: var(--gray-600);
-  max-width: 52ch;
+  max-width: 62ch;
+  margin: 0;
 }
 
 .heroCtas {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
-  /* Pinned to the bottom of the row, which is what defines the row's lower
-     edge for the stats beside it. */
-  margin-top: auto;
-  padding-top: 26px;
 }
 
 .heroStats {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  /* The box stretches so the rule runs the full height of the row; the
-     numbers sit centred inside it. */
-  align-content: center;
-  gap: clamp(20px, 3vw, 46px);
-  padding-left: clamp(20px, 3vw, 46px);
-  border-left: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(22px, 3.4vw, 54px);
 }
 
-/* Stat values are peers of the reel word, not rivals of the headline. */
+.heroStats > div {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  padding-inline: clamp(11px, 1.7vw, 27px);
+}
+
+.heroStats p {
+  margin: 0;
+}
+
+/* Hairlines between the figures rather than around them. */
+.heroStats > div + div::before {
+  content: "";
+  position: absolute;
+  left: calc(clamp(22px, 3.4vw, 54px) / -2);
+  top: 6%;
+  bottom: 6%;
+  width: 1px;
+  background: var(--line);
+}
+
 .heroStats .stat-value,
 .heroStats p:first-child {
   font-size: var(--t-feature);
@@ -285,38 +247,43 @@
 .heroStats .stat-label,
 .heroStats p:last-child {
   font-size: var(--t-meta);
-}
-
-.heroStats .stat-label,
-.heroStats p:last-child {
   color: var(--gray-600);
 }
 
 @media (max-width: 940px) {
-  .heroTop {
-    grid-template-columns: 1fr;
-    column-gap: 0;
-  }
-
-  .heroWordsWrap {
-    order: -1;
-    display: none;
-  }
-
-  .heroFoot {
-    grid-template-columns: 1fr;
-  }
-
-  .heroCtas {
-    margin-top: 0;
+  .heroInner {
+    gap: 20px;
   }
 
   .heroStats {
-    padding-left: 0;
-    border-left: 0;
-    border-top: 1px solid var(--line);
-    padding-top: 24px;
-    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .heroStats > div + div::before {
+    display: none;
+  }
+}
+
+/* Short laptop viewports: keep the hero and the client-logo band above the
+   fold. The ring is what costs the height, so it gives way with the ladder. */
+@media (min-width: 941px) and (max-height: 820px) {
+  .hero {
+    /* Still one screen — only the content inside it gives way. */
+    --hero-pad: 20px;
+    --t-display: clamp(1.95rem, 3.9vw, 3.5rem);
+    --t-feature: clamp(1.4rem, 2.2vw, 2rem);
+    --t-body: 1rem;
+  }
+
+  .heroWords {
+    --orb-ry: clamp(118px, 10vw, 142px);
+    --orb-dot: clamp(86px, 7vw, 104px);
+    --core-art-w: clamp(190px, 20vw, 280px);
+  }
+
+  .heroInner,
+  .heroFoot {
+    gap: 18px;
   }
 }
 
@@ -641,125 +608,78 @@
    LogicaAI
    -------------------------------------------------------------------------- */
 
-.logicaPoints {
+/* --------------------------------------------------------------------------
+   LogicaAI — a centred stack: head, the three claims, then the flow
+   -------------------------------------------------------------------------- */
+
+.logica {
+  /* The flow's spine masks itself against this. */
+  --flow-bg: var(--gray-50);
+}
+
+.logicaHead {
+  max-width: 62ch;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.logicaHead .h2 {
+  margin-top: 16px;
+}
+
+.logicaHead .lead {
+  margin-top: 20px;
+}
+
+.promises {
   display: grid;
-  gap: 14px;
-  margin-top: 4px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 24px);
+  margin-top: clamp(34px, 4vw, 56px);
 }
 
-.logicaPoints p {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  margin: 0;
-  font-size: 1.02rem;
-  line-height: 1.65;
-}
-
-.logicaPoints svg {
-  flex: none;
-  margin-top: 3px;
-  color: var(--orange);
-}
-
-.railHead {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px 24px;
-  margin: clamp(40px, 5vw, 66px) 0 22px;
-  padding-top: clamp(28px, 3.4vw, 44px);
-  border-top: 1px solid var(--line);
-}
-
-.railHead h3 {
-  margin: 0;
-  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
-  letter-spacing: -0.03em;
-}
-
-.railHead > span {
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-/*
- * Five cards will not sit side by side at a readable width, so the row scrolls
- * and snaps — the "Meet us here" pattern.
- */
-.rail {
-  display: flex;
-  gap: clamp(14px, 1.6vw, 20px);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 10px;
-  scrollbar-width: thin;
-}
-
-.railCard {
-  /* Fixed basis, no shrinking: five cards cannot fit legibly, so the row
-     scrolls and snaps instead of squeezing them. */
-  flex: 0 0 clamp(268px, 31%, 360px);
-  scroll-snap-align: start;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+.promise {
+  padding: clamp(22px, 2.4vw, 30px);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: var(--bg);
-  transition: transform var(--t), border-color var(--t), box-shadow var(--t);
 }
 
-.railCard:hover {
-  transform: translateY(-5px);
-  border-color: color-mix(in srgb, var(--orange) 46%, transparent);
-  box-shadow: var(--shadow-lg);
-}
-
-.railArt {
-  display: block;
-  aspect-ratio: 360 / 200;
-  background: #fff;
-  border-bottom: 1px solid var(--line);
-}
-
-.railArt svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.railBody {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: clamp(20px, 2.4vw, 26px);
-}
-
-.railKicker {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.promiseIcon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  background: color-mix(in srgb, var(--orange) 12%, transparent);
   color: var(--orange);
+  margin-bottom: 16px;
 }
 
-.railBody h4 {
-  margin: 0;
-  font-size: 1.12rem;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
+.promise h3 {
+  font-size: 1.1rem;
+  font-weight: 750;
+  letter-spacing: -0.028em;
+  margin: 0 0 8px;
 }
 
-.railBody p {
+.promise p {
   margin: 0;
-  font-size: 0.94rem;
-  line-height: 1.55;
-  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.58;
+  color: var(--gray-600);
+}
+
+.logicaFoot {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(28px, 3.4vw, 46px);
+}
+
+@media (max-width: 880px) {
+  .promises {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* --------------------------------------------------------------------------

@@ -3,7 +3,7 @@ import CaseCard from "@/components/CaseCard";
 import Counter from "@/components/Counter";
 import Icon, { type IconName } from "@/components/Icon";
 import Marquee from "@/components/Marquee";
-import LogicaPanels from "@/components/LogicaPanels";
+import LogicaFlow from "@/components/LogicaFlow";
 import OfferTabs from "@/components/OfferTabs";
 import Reveal from "@/components/Reveal";
 import WordReel from "@/components/WordReel";
@@ -26,14 +26,13 @@ export default function HomePage() {
         <div className={styles.heroGrid} aria-hidden="true" />
 
         <div className={`container ${styles.heroInner}`}>
-          {/* Badge, title and reel are siblings of one grid so the reel can be
-              centred on the title alone rather than on badge + title. */}
-          <div className={styles.heroTop}>
-            <p className={styles.heroBadge}>
-              <b>Since 2002</b>
-              Atlanta · Nanjing
-            </p>
+          <p className={styles.heroBadge}>
+            <b>Since 2002</b>
+            Atlanta · Nanjing
+          </p>
 
+          {/* The orbit is the hero. The headline rides in the middle of it. */}
+          <WordReel className={styles.heroWords}>
             <h1 className={styles.heroTitle}>
               <span>
                 <i>Pragmatic AI.</i>
@@ -42,29 +41,9 @@ export default function HomePage() {
                 <i className={styles.heroAccent}>Proven Delivery</i>
               </span>
             </h1>
-
-            <div className={styles.heroWordsWrap} aria-hidden="true">
-              <WordReel className={styles.heroWords} />
-            </div>
-          </div>
+          </WordReel>
 
           <div className={styles.heroFoot}>
-            <div className={styles.heroFootText}>
-              <p className={styles.heroLead}>
-                20+ years, always on time, always on budget — now with AI at the core of how we
-                build.
-              </p>
-              <div className={styles.heroCtas}>
-                <Link href="/cases" className="btn">
-                  See what we&rsquo;ve built
-                  <Icon name="arrow" size={16} />
-                </Link>
-                <Link href="/contact" className="btn btn-ghost">
-                  Talk to an engineer
-                </Link>
-              </div>
-            </div>
-
             <div className={styles.heroStats}>
               {keyStats.map((s) => (
                 <div key={s.label}>
@@ -74,6 +53,21 @@ export default function HomePage() {
                   <p className="stat-label">{s.label}</p>
                 </div>
               ))}
+            </div>
+
+            <p className={styles.heroLead}>
+              20+ years, always on time, always on budget — now with AI at the core of how we
+              build.
+            </p>
+
+            <div className={styles.heroCtas}>
+              <Link href="/cases" className="btn">
+                See what we&rsquo;ve built
+                <Icon name="arrow" size={16} />
+              </Link>
+              <Link href="/contact" className="btn btn-ghost">
+                Talk with us
+              </Link>
             </div>
           </div>
         </div>
@@ -143,55 +137,63 @@ export default function HomePage() {
       {/* ------------------------------------------------------------ LogicaAI */}
       <section className={`section skin-mute ${styles.logica}`}>
         <div className="container">
-          <div className="section-head">
-            <Reveal>
+          <Reveal>
+            <div className={styles.logicaHead}>
               <span className="eyebrow">AI Solution Implementation</span>
-              <h2 className="h2" style={{ marginTop: 16 }}>
+              <h2 className="h2">
                 Quick to start.
                 <br />
                 Easy to use.
               </h2>
-              <p className="lead" style={{ marginTop: 22 }}>
-                LogicaAI is the platform we use to put agents into production without a twelve-month
-                programme in front of it. Plug in the data you already have, go after the
-                low-hanging fruit first, and let the business see a working result before it
-                commits to the big build.
+              <p className="lead">
+                LogicaAI is the platform we use to put agents into production without a
+                twelve-month programme in front of it. Follow the line down — it is the whole
+                engagement, from the data you already have to what the business can do
+                afterwards.
               </p>
-            </Reveal>
-            <Reveal delay={90}>
-              <div className={styles.logicaPoints}>
-                {[
-                  "Just plug in your data — no migration project first",
-                  "Low-hanging fruit first, so value shows up early",
-                  "Visual composition, not a framework to learn",
-                  "Production-grade from the pilot, not after it",
-                ].map((point) => (
-                  <p key={point}>
-                    <Icon name="check" size={17} />
-                    <span>{point}</span>
-                  </p>
-                ))}
-              </div>
-              <div className={styles.heroCtas}>
-                <a className="btn" href={site.aiSiteUrl} target="_blank" rel="noreferrer noopener">
-                  Visit the LogicaAI site
-                  <Icon name="arrow" size={16} />
-                </a>
-              </div>
-            </Reveal>
-          </div>
-
-          <Reveal>
-            <div className={styles.railHead}>
-              <h3>
-                The stack behind <span style={{ color: "var(--orange)" }}>LogicaAI</span>
-              </h3>
-              <span>Hover to look inside</span>
             </div>
           </Reveal>
 
+          {/* The three claims the rest of the section has to earn. */}
           <Reveal delay={90}>
-            <LogicaPanels />
+            <div className={styles.promises}>
+              {[
+                {
+                  icon: "data" as IconName,
+                  t: "Just plug in your data",
+                  b: "No migration project, no warehouse rebuild, no cleanup phase first.",
+                },
+                {
+                  icon: "spark" as IconName,
+                  t: "Low-hanging fruit first",
+                  b: "The pieces that pay for themselves ship first, so value shows up early.",
+                },
+                {
+                  icon: "clock" as IconName,
+                  t: "Quick to start, easy to use",
+                  b: "Visual composition on a canvas — there is no framework to learn.",
+                },
+              ].map((p) => (
+                <div className={styles.promise} key={p.t}>
+                  <span className={styles.promiseIcon}>
+                    <Icon name={p.icon} size={20} />
+                  </span>
+                  <h3>{p.t}</h3>
+                  <p>{p.b}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+
+          <LogicaFlow />
+
+          <Reveal>
+            <div className={styles.logicaFoot}>
+              <a className="btn" href={site.aiSiteUrl} target="_blank" rel="noreferrer noopener">
+                Visit the LogicaAI site
+                <Icon name="arrow" size={16} />
+              </a>
+            </div>
           </Reveal>
         </div>
       </section>

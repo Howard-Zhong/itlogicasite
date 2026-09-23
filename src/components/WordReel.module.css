@@ -1,233 +1,96 @@
 /*
- * Capability reel.
+ * Capability orbit — see WordReel.tsx.
  *
- * Each letter hinges on its own axis like a flap board and rises into a
- * clipped row; underneath, one segment per capability shows the whole set
- * and fills over the dwell. Everything that moves is a transform, so the
- * reel never competes with the counters on the left for the main thread.
+ * The track is a circle in an SVG stretched by preserveAspectRatio="none", so
+ * it always matches the ellipse the balls are placed on (--orb-rx / --orb-ry)
+ * without any path maths. Balls move on transform and opacity only.
  */
 
-.reel {
+.orbit {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: var(--reel-h, 240px);
   width: 100%;
-}
-
-.block {
-  position: relative;
-  z-index: 1;
-  width: min(100%, var(--reel-w, 27rem));
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(20px, 3.4vh, 34px);
-}
-
-/* ---------- the word ---------- */
-
-.window {
-  position: relative;
-  height: 1.16em;
-  font-size: var(--word-size, 2.4rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.035em;
-}
-
-.line {
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: flex;
-  align-items: flex-start;
-  white-space: nowrap;
-}
-
-.cell {
-  display: inline-block;
-  overflow: hidden;
-  /* Room below the baseline so the descenders in "Agentic" and "Analytics"
-     live inside the clip instead of being cut by it. */
-  padding-bottom: 0.26em;
-  margin-bottom: -0.26em;
-  perspective: 520px;
-}
-
-.glyph {
-  display: inline-block;
-  color: var(--orange);
-  transform-origin: 50% 45%;
-  backface-visibility: hidden;
-  will-change: transform, opacity;
-}
-
-.in .glyph {
-  animation: flapIn 0.56s cubic-bezier(0.28, 0.84, 0.3, 1) both;
-}
-
-.out .glyph {
-  animation: flapOut 0.38s cubic-bezier(0.55, 0, 0.85, 0.2) both;
-}
-
-@keyframes flapIn {
-  from {
-    transform: translateY(78%) rotateX(-74deg);
-    opacity: 0;
-  }
-  55% {
-    opacity: 1;
-  }
-  to {
-    transform: translateY(0) rotateX(0deg);
-    opacity: 1;
-  }
-}
-
-@keyframes flapOut {
-  from {
-    transform: translateY(0) rotateX(0deg);
-    opacity: 1;
-  }
-  60% {
-    opacity: 0;
-  }
-  to {
-    transform: translateY(-84%) rotateX(78deg);
-    opacity: 0;
-  }
-}
-
-/* ---------- the rail ---------- */
-
-.rail {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.segs {
-  display: flex;
-  gap: 6px;
-  flex: 1;
+  height: calc(var(--orb-ry) * 2 + var(--orb-dot));
   min-width: 0;
 }
 
-.seg {
-  position: relative;
-  flex: 1;
-  height: 2px;
-  border-radius: 2px;
-  overflow: hidden;
-  background: color-mix(in srgb, var(--ink) 13%, transparent);
-  transition: background 0.4s ease;
-}
-
-.seg[data-state="done"] {
-  background: color-mix(in srgb, var(--orange) 30%, transparent);
-}
-
-.fill {
-  position: absolute;
-  inset: 0;
-  transform-origin: left center;
-  background: linear-gradient(90deg, var(--orange-bright), var(--orange));
-  animation-name: fillSeg;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-}
-
-@keyframes fillSeg {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
-.count {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  font-variant-numeric: tabular-nums;
-  color: color-mix(in srgb, var(--ink) 52%, transparent);
-  flex: none;
-}
-
-.count i {
-  font-style: normal;
-  margin: 0 0.15em;
-  color: color-mix(in srgb, var(--ink) 26%, transparent);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .glyph,
-  .fill {
-    animation: none;
-  }
-  .glyph {
-    transform: none;
-    opacity: 1;
-  }
-  .fill {
-    transform: scaleX(1);
-  }
-}
-
-/* ---------- the motif behind the word ---------- */
-
-.artLayer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.art {
+.track {
   position: absolute;
   left: 50%;
   top: 50%;
   translate: -50% -50%;
-  width: min(110%, var(--art-w, 31rem));
-  aspect-ratio: 208 / 150;
-  /* Fades its own edges so the motif dissolves into the hero instead of
-     ending on a hard rectangle. The mask sits above centre so the lower half
-     is gone before it reaches the progress rail. */
-  -webkit-mask-image: radial-gradient(64% 58% at 50% 43%, #000 30%, transparent 100%);
-  mask-image: radial-gradient(64% 58% at 50% 43%, #000 30%, transparent 100%);
+  width: calc(var(--orb-rx) * 2);
+  height: calc(var(--orb-ry) * 2);
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* ---------- the balls ---------- */
+
+.dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--orb-dot);
+  height: var(--orb-dot);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  /* Not a percentage: percentage padding resolves against the containing
+     block (the whole orbit), which inflates a 99px ball to 255px. */
+  padding-inline: calc(var(--orb-dot) * 0.1);
+  text-align: center;
+  text-wrap: balance;
+  font-size: calc(var(--orb-dot) * 0.121);
+  font-weight: 650;
+  line-height: 1.16;
+  letter-spacing: -0.012em;
+  color: color-mix(in srgb, var(--ink) 74%, transparent);
+  background: color-mix(in srgb, var(--white) 90%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+  box-shadow: 0 3px 14px -8px color-mix(in srgb, var(--ink) 45%, transparent);
+  /* The travel itself is driven frame by frame in JS; these transitions only
+     cover the colour bloom as a ball takes the apex seat. */
+  transition: background 0.5s ease, color 0.5s ease, border-color 0.5s ease,
+    box-shadow 0.5s ease;
   will-change: transform, opacity;
 }
 
-.scrim {
+.apex {
+  color: #fff;
+  background: linear-gradient(140deg, var(--orange-bright), var(--orange) 62%, var(--orange-dark));
+  border-color: transparent;
+  box-shadow: 0 16px 38px -14px color-mix(in srgb, var(--orange) 78%, transparent);
+}
+
+/* ---------- the middle ---------- */
+
+.core {
   position: absolute;
   left: 50%;
   top: 50%;
   translate: -50% -50%;
-  width: 116%;
-  height: 300%;
-  z-index: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  /* Stops inside the balls at three and nine o'clock. */
+  width: calc(var(--orb-rx) * 2 - var(--orb-dot) * 1.25);
   pointer-events: none;
-  background: radial-gradient(
-    54% 40% at 50% 50%,
-    color-mix(in srgb, var(--white) 82%, transparent) 0%,
-    color-mix(in srgb, var(--white) 46%, transparent) 46%,
-    transparent 74%
-  );
 }
 
-.artIn {
-  animation: artIn 0.82s cubic-bezier(0.2, 0.8, 0.25, 1) both;
+.coreArt {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: var(--core-art-w, 20rem);
+  display: grid;
+  place-items: center;
 }
 
-.artOut {
-  animation: artOut 0.42s ease-in both;
+.art {
+  animation: artIn 0.9s cubic-bezier(0.2, 0.8, 0.25, 1) both;
+  -webkit-mask-image: radial-gradient(66% 62% at 50% 48%, #000 34%, transparent 100%);
+  mask-image: radial-gradient(66% 62% at 50% 48%, #000 34%, transparent 100%);
 }
 
 @keyframes artIn {
@@ -241,23 +104,60 @@
   }
 }
 
-@keyframes artOut {
-  from {
-    opacity: 1;
-    transform: scale(1);
+.scrim {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: 118%;
+  height: 190%;
+  pointer-events: none;
+  background: radial-gradient(
+    48% 42% at 50% 50%,
+    color-mix(in srgb, var(--white) 86%, transparent) 0%,
+    color-mix(in srgb, var(--white) 50%, transparent) 50%,
+    transparent 78%
+  );
+}
+
+.coreSlot {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+  width: 100%;
+}
+
+/* ---------- below the ring's breakpoint ---------- */
+
+@media (max-width: 940px) {
+  /* The ring needs width it does not have on a phone; the headline and its
+     motif stay, the track and the balls go. */
+  .orbit {
+    height: auto;
   }
-  to {
-    opacity: 0;
-    transform: scale(1.08);
+
+  .track,
+  .dot {
+    display: none;
+  }
+
+  .core {
+    position: static;
+    translate: none;
+    width: 100%;
+  }
+
+  .coreArt {
+    width: min(100%, 18rem);
+    opacity: 0.55;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .artIn,
-  .artOut {
+  .art {
     animation: none;
   }
-  .artOut {
-    opacity: 0;
+  .dot {
+    transition: none;
   }
 }

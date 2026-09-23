@@ -19,11 +19,15 @@ export type CaseStudy = {
   takeaway: string;
   /** Art direction seed for the generated cover visual. */
   art: "path" | "grid" | "vision" | "carbon" | "market" | "mobile" | "sensor" | "cloud";
+  /* Photography for the card and the detail band; `art` is kept as the
+     fallback illustration key. */
+  image: string;
 };
 
 export const cases: CaseStudy[] = [
   {
     slug: "intelligent-path-planning-shopping-malls",
+    image: "/cases/intelligent-path-planning-shopping-malls.webp",
     client: "Retail Complex Operator",
     title: "Intelligent Path Planning for Shopping Malls",
     summary:
@@ -59,6 +63,7 @@ export const cases: CaseStudy[] = [
   },
   {
     slug: "benchmark-eks-cattle-system",
+    image: "/cases/benchmark-eks-cattle-system.webp",
     client: "Elanco — EKS",
     title: "Benchmark — EKS Cattle System",
     summary:
@@ -91,6 +96,7 @@ export const cases: CaseStudy[] = [
   },
   {
     slug: "penpoint-computer-vision-sorting",
+    image: "/cases/penpoint-computer-vision-sorting.webp",
     client: "Elanco — PenPoint",
     title: "PenPoint — Computer Vision Sorting",
     summary:
@@ -123,6 +129,7 @@ export const cases: CaseStudy[] = [
   },
   {
     slug: "uplook-carbon-inset-engine",
+    image: "/cases/uplook-carbon-inset-engine.webp",
     client: "Elanco — UpLook",
     title: "UpLook — Carbon Inset Engine",
     summary:
@@ -154,6 +161,7 @@ export const cases: CaseStudy[] = [
   },
   {
     slug: "cargill-pig-flash-model",
+    image: "/cases/cargill-pig-flash-model.webp",
     client: "Cargill",
     title: "Cargill — Pig Flash Model",
     summary:
@@ -185,6 +193,7 @@ export const cases: CaseStudy[] = [
   },
   {
     slug: "lallemand-mobile-apps-analytics",
+    image: "/cases/lallemand-mobile-apps-analytics.webp",
     client: "Lallemand",
     title: "Lallemand — Mobile Apps & Analytics",
     summary:
@@ -216,6 +225,7 @@ export const cases: CaseStudy[] = [
   },
   {
     slug: "vetrax-canine-behavior",
+    image: "/cases/vetrax-canine-behavior.webp",
     client: "AgLogica — Vetrax",
     title: "Vetrax — Canine Behavior",
     summary:
@@ -248,6 +258,7 @@ export const cases: CaseStudy[] = [
   },
   {
     slug: "eks-azure-cloud-modernization",
+    image: "/cases/eks-azure-cloud-modernization.webp",
     client: "Elanco Animal Health",
     title: "Cloud Modernization — EKS Azure",
     summary:

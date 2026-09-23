@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import CaseArt from "@/components/CaseArt";
 import Counter from "@/components/Counter";
 import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
@@ -65,7 +64,8 @@ export default async function CaseDetailPage({ params }: Params) {
       />
 
       <div className={styles.caseArtBand}>
-        <CaseArt variant={study.art} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={study.image} alt="" />
       </div>
 
       <section className="section">
