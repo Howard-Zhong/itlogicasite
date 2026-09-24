@@ -26,7 +26,7 @@ const DEFAULT_WORDS = [
 ];
 
 /** How long a ball takes to travel one seat. */
-const TRAVEL = 1000;
+const TRAVEL = 1500;
 /** Fraction of the travel after which the motif swaps to the arriving ball. */
 const HANDOVER = 0.45;
 
@@ -35,7 +35,7 @@ const easeInOut = (t: number) =>
 
 export default function WordReel({
   words = DEFAULT_WORDS,
-  intervalMs = 2800,
+  intervalMs = 3300,
   className,
   children,
 }: {

@@ -25,8 +25,8 @@ export default function Footer() {
               ship — and by when.
             </h2>
             <p className={styles.sub}>
-              Choose the office closest to you and your message goes straight to the team that will
-              answer it. We reply within one business day.
+              Tell us what you need and your message goes straight to the team that will answer
+              it. We reply within one business day.
             </p>
             <ContactForm />
           </Reveal>
@@ -69,8 +69,8 @@ export default function Footer() {
                 <Icon name="spark" size={22} />
               </span>
               <span>
-                <h4>AI Solution Delivery</h4>
-                <p>Agentic AI, LogicaAI and enterprise agent delivery</p>
+                <h4>LogicaAI</h4>
+                <p>Agentic AI, assistants and automated workflows in production</p>
               </span>
               <Icon name="arrow" size={20} />
             </a>
@@ -84,18 +84,20 @@ export default function Footer() {
           <img src="/brand/itlogica-logo.png" alt="ITLogica" width={220} height={72} />
           <nav className={styles.siteLinks} aria-label="Footer">
             <Link href="/">Home</Link>
-            {nav.map((item) => (
-              <Link key={item.href} href={item.href}>
-                {item.label}
-              </Link>
-            ))}
-            <a href={site.aiSiteUrl} target="_blank" rel="noreferrer noopener">
-              AI Site
-            </a>
+            {nav.map((item) =>
+              "external" in item && item.external ? (
+                <a key={item.href} href={item.href} target="_blank" rel="noreferrer noopener">
+                  {item.label}
+                </a>
+              ) : (
+                <Link key={item.href} href={item.href}>
+                  {item.label}
+                </Link>
+              )
+            )}
           </nav>
           <p className={styles.copy}>
-            © {new Date().getFullYear()} {site.legalName} · All rights reserved · Atlanta, Georgia ·
-            Nanjing, China
+            © {new Date().getFullYear()} {site.legalName} · All rights reserved · Atlanta, Georgia
           </p>
         </div>
       </div>

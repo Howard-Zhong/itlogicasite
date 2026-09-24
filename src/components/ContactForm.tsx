@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Icon from "./Icon";
-import { offices, type OfficeKey } from "@/data/site";
+import { offices } from "@/data/site";
 import styles from "./ContactForm.module.css";
 
 type Status = { kind: "idle" | "sending" | "ok" | "err"; message?: string };
@@ -18,14 +18,16 @@ const interests = [
   "Something else",
 ];
 
+/* One office, so there is nothing to choose: every enquiry routes to Atlanta. */
+const ROUTED = offices.atlanta;
+
 export default function ContactForm({ compact = false }: { compact?: boolean }) {
-  const [office, setOffice] = useState<OfficeKey | "">("");
   const [status, setStatus] = useState<Status>({ kind: "idle" });
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const data = Object.fromEntries(new FormData(form).entries());
+    const data = { ...Object.fromEntries(new FormData(form).entries()), office: ROUTED.key };
 
     setStatus({ kind: "sending" });
     try {
@@ -42,12 +44,9 @@ export default function ContactForm({ compact = false }: { compact?: boolean }) 
 
       setStatus({
         kind: "ok",
-        message: `Thank you — your enquiry is on its way to our ${
-          office ? offices[office as OfficeKey].city : "nearest"
-        } office. We reply within one business day.`,
+        message: `Thank you — your enquiry is on its way to our ${ROUTED.city} office. We reply within one business day.`,
       });
       form.reset();
-      setOffice("");
     } catch (error) {
       setStatus({
         kind: "err",
@@ -58,8 +57,6 @@ export default function ContactForm({ compact = false }: { compact?: boolean }) 
       });
     }
   }
-
-  const routed = office ? offices[office as OfficeKey] : null;
 
   return (
     <form className={styles.form} onSubmit={onSubmit} noValidate={false}>
@@ -94,39 +91,18 @@ export default function ContactForm({ compact = false }: { compact?: boolean }) 
         </div>
       </div>
 
-      <div className={styles.row}>
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="cf-company">
-            Company
-          </label>
-          <input
-            className={styles.input}
-            id="cf-company"
-            name="company"
-            type="text"
-            autoComplete="organization"
-            placeholder="Company name"
-          />
-        </div>
-        <div className={styles.field}>
-          <label className={styles.label} htmlFor="cf-office">
-            Office <span className={styles.req}>*</span>
-          </label>
-          <select
-            className={styles.select}
-            id="cf-office"
-            name="office"
-            required
-            value={office}
-            onChange={(e) => setOffice(e.target.value as OfficeKey | "")}
-          >
-            <option value="" disabled>
-              Select an office
-            </option>
-            <option value="atlanta">Atlanta, USA — Headquarters</option>
-            <option value="nanjing">Nanjing, China — Delivery Center</option>
-          </select>
-        </div>
+      <div className={styles.field}>
+        <label className={styles.label} htmlFor="cf-company">
+          Company
+        </label>
+        <input
+          className={styles.input}
+          id="cf-company"
+          name="company"
+          type="text"
+          autoComplete="organization"
+          placeholder="Company name"
+        />
       </div>
 
       {!compact && (
@@ -164,13 +140,9 @@ export default function ContactForm({ compact = false }: { compact?: boolean }) 
 
       <p className={styles.routeNote}>
         <Icon name="mail" size={15} />
-        {routed ? (
-          <span>
-            Routed to <strong>{routed.email}</strong> · {routed.role}
-          </span>
-        ) : (
-          <span>Choose an office and we&rsquo;ll route your message to the right team.</span>
-        )}
+        <span>
+          Routed to <strong>{ROUTED.email}</strong> · {ROUTED.role}
+        </span>
       </p>
 
       {status.kind === "ok" && (

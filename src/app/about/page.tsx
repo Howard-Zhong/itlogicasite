@@ -19,7 +19,7 @@ import home from "../home.module.css";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Founded in Atlanta in 2002 with a delivery centre in Nanjing — ITLogica's company overview, certifications, milestones, clients and partners.",
+    "Founded in Atlanta in 2002 — ITLogica's company overview, certifications, milestones and partners.",
 };
 
 export default function AboutPage() {
@@ -36,7 +36,7 @@ export default function AboutPage() {
             enterprises run on.
           </>
         }
-        lead="ITLogica is headquartered in Atlanta, Georgia, with a dedicated R&D and solution delivery centre in Nanjing, China. We have spent close to twenty years in information technology and are a Tier 1 solution provider to Fortune 500 organisations — several of our client relationships now span more than a decade."
+        lead="ITLogica is headquartered in Atlanta, Georgia. We have spent more than twenty years in information technology and are a Tier 1 solution provider to Fortune 500 organizations — several of our client relationships now span more than a decade."
         particles
         crumbs={[{ label: "Home", href: "/" }, { label: "About Us" }]}
       />
@@ -104,7 +104,7 @@ export default function AboutPage() {
                     },
                     {
                       t: "Global view, local execution",
-                      b: "Atlanta headquarters with a Nanjing R&D and delivery centre — cross-cultural delivery is a core competency, not an afterthought.",
+                      b: "An Atlanta headquarters with a distributed delivery model — onshore accountability, around-the-clock progress.",
                     },
                   ].map((item, i) => (
                     <div className="card" key={item.t}>

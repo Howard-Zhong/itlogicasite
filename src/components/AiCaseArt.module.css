@@ -1,0 +1,40 @@
+/* One family of line work for the three AI case motifs. */
+
+.svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ink,
+.hot,
+.faint {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ink {
+  stroke: color-mix(in srgb, var(--ink) 26%, transparent);
+  stroke-width: 1.6;
+}
+
+.faint {
+  stroke: color-mix(in srgb, var(--ink) 13%, transparent);
+  stroke-width: 1.3;
+}
+
+.hot {
+  stroke: color-mix(in srgb, var(--orange) 62%, transparent);
+  stroke-width: 2;
+}
+
+.inkFill {
+  fill: color-mix(in srgb, var(--ink) 20%, transparent);
+  stroke: none;
+}
+
+.hotFill {
+  fill: color-mix(in srgb, var(--orange) 52%, transparent);
+  stroke: none;
+}

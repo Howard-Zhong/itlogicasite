@@ -475,23 +475,6 @@
   object-fit: cover;
 }
 
-.industryClients {
-  margin-top: 24px;
-  font-size: 0.9rem;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-.industryClients span {
-  display: inline-block;
-  margin-right: 8px;
-  font-weight: 700;
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, currentColor 66%, transparent);
-}
-
 .industryCases {
   display: grid;
   gap: 1px;

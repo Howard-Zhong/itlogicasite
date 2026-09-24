@@ -9,7 +9,7 @@ import styles from "../inner.module.css";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Talk to ITLogica in Atlanta, Georgia or Nanjing, China — with additional presence in Columbia, South Carolina and Indianapolis, Indiana. Choose your office and your enquiry routes straight to the team that answers it.",
+    "Talk to ITLogica in Atlanta, Georgia — with additional presence in Columbia, South Carolina and Indianapolis, Indiana. Your enquiry routes straight to the team that answers it.",
 };
 
 export default function ContactPage() {
@@ -19,12 +19,12 @@ export default function ContactPage() {
         eyebrow="Contact Us"
         title={
           <>
-            Two offices.
+One conversation
             <br />
-            One conversation away.
+            away.
           </>
         }
-        lead="Tell us what you are trying to ship and by when. Choose an office in the form and your message goes straight to the team that will answer it — we reply within one business day."
+        lead="Tell us what you are trying to ship and by when. Your message goes straight to the team that will answer it — we reply within one business day."
         particles
         crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
       />

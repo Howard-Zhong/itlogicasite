@@ -3,22 +3,24 @@ export const site = {
   legalName: "ITLogica, Inc.",
   tagline: "20+ Years Experience, Always on Time, Always on Budget",
   description:
-    "ITLogica is an information technology services firm delivering enterprise solutions across animal health, agribusiness, utilities and cross-industry — from Atlanta and Nanjing, since 2002.",
+    "ITLogica is an information technology services firm delivering enterprise solutions across animal health, agribusiness, utilities and cross-industry — from Atlanta, Georgia, since 2002.",
   url: "https://itlogica.com",
   aiSiteUrl: "https://ai.itlogica.com",
   founded: 2002,
 } as const;
 
+/* `external` items open the standalone LogicaAI site in a new tab. */
 export const nav = [
   { label: "Services", href: "/services" },
   { label: "Capabilities", href: "/capabilities" },
+  { label: "LogicaAI", href: site.aiSiteUrl, external: true },
   { label: "Industries", href: "/industries" },
   { label: "Case Studies", href: "/cases" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
-export type OfficeKey = "atlanta" | "nanjing";
+export type OfficeKey = "atlanta";
 
 export const offices: Record<
   OfficeKey,
@@ -52,21 +54,9 @@ export const offices: Record<
     timezone: "EST · UTC−5",
     map: { x: 25.6, y: 40.5 },
   },
-  nanjing: {
-    key: "nanjing",
-    label: "Nanjing, China",
-    city: "Nanjing",
-    region: "Jiangsu",
-    country: "China",
-    role: "R&D and Solution Delivery Center",
-    address: ["ITLogica Delivery Center", "Nanjing, Jiangsu", "China"],
-    email: "jay.fang@itlogica.com",
-    timezone: "CST · UTC+8",
-    map: { x: 78.5, y: 41.5 },
-  },
 };
 
-export const officeList = [offices.atlanta, offices.nanjing];
+export const officeList = [offices.atlanta];
 
 export const generalEmails = [
   { label: "General enquiries", email: "info@itlogica.com" },

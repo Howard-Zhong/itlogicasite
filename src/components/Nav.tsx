@@ -60,29 +60,34 @@ export default function Nav() {
           </Link>
 
           <nav className={styles.links} aria-label="Primary">
-            {nav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`${styles.link} ${
-                  pathname === item.href || pathname.startsWith(`${item.href}/`) ? styles.active : ""
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {nav.map((item) =>
+              "external" in item && item.external ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className={styles.link}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`${styles.link} ${
+                    pathname === item.href || pathname.startsWith(`${item.href}/`)
+                      ? styles.active
+                      : ""
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
           </nav>
 
           <div className={styles.actions}>
-            <a
-              className={styles.aiLink}
-              href={site.aiSiteUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              <span className={styles.dot} />
-              AI Solution Delivery
-            </a>
             <Link href="/contact" className="btn btn-sm">
               Let&rsquo;s talk
               <Icon name="arrow" size={15} />
@@ -101,22 +106,26 @@ export default function Nav() {
       </header>
 
       <div className={`${styles.sheet} ${open ? styles.sheetOpen : ""}`}>
-        {nav.map((item) => (
-          <Link key={item.href} href={item.href} className={styles.sheetLink}>
-            {item.label}
-            <Icon name="arrow" size={20} />
-          </Link>
-        ))}
+        {nav.map((item) =>
+          "external" in item && item.external ? (
+            <a
+              key={item.href}
+              href={item.href}
+              className={styles.sheetLink}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {item.label}
+              <Icon name="arrow" size={20} />
+            </a>
+          ) : (
+            <Link key={item.href} href={item.href} className={styles.sheetLink}>
+              {item.label}
+              <Icon name="arrow" size={20} />
+            </Link>
+          )
+        )}
         <div className={styles.sheetFoot}>
-          <a
-            className="btn btn-ghost btn-sm"
-            href={site.aiSiteUrl}
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            AI Solution Delivery
-            <Icon name="arrow" size={15} />
-          </a>
           <Link href="/contact" className="btn btn-sm">
             Let&rsquo;s talk
           </Link>

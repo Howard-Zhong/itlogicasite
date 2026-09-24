@@ -13,7 +13,6 @@ export type Industry = {
   /** Case study slugs from src/data/cases.ts. */
   cases: string[];
   /** Clients from this sector we have worked with. */
-  clients?: string[];
 };
 
 export const industries: Industry[] = [
@@ -38,7 +37,6 @@ export const industries: Industry[] = [
       "uplook-carbon-inset-engine",
       "eks-azure-cloud-modernization",
     ],
-    clients: ["Elanco", "Zoetis", "Bayer", "Merial", "Ivy Animal Health", "AgriLabs"],
   },
   {
     slug: "agribusiness",
@@ -56,7 +54,6 @@ export const industries: Industry[] = [
     ],
     capabilities: ["data-analytics", "mobile-web-development", "artificial-intelligence"],
     cases: ["cargill-pig-flash-model", "lallemand-mobile-apps-analytics"],
-    clients: ["Cargill", "Lallemand", "United Animal Health", "Turnkey Computer Systems"],
   },
   {
     slug: "health",
@@ -74,7 +71,6 @@ export const industries: Industry[] = [
     ],
     capabilities: ["iot", "artificial-intelligence", "data-analytics"],
     cases: ["vetrax-canine-behavior"],
-    clients: ["AgLogica", "Hill's Pet Nutrition"],
   },
   {
     slug: "utilities",
@@ -92,7 +88,6 @@ export const industries: Industry[] = [
     ],
     capabilities: ["cloud", "data-analytics", "mobile-web-development"],
     cases: [],
-    clients: ["NV Energy", "Hansen", "IFS"],
   },
   {
     slug: "retail",

@@ -96,12 +96,6 @@ export default function IndustriesPage() {
                     ))}
                   </div>
 
-                  {ind.clients && ind.clients.length > 0 && (
-                    <p className={styles.industryClients}>
-                      <span>Worked with</span> {ind.clients.join(" · ")}
-                    </p>
-                  )}
-
                   {ind.cases.length > 0 && (
                     <div className={styles.industryCases}>
                       {ind.cases.map((slug) => {

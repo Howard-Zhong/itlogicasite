@@ -1,349 +1,299 @@
 /*
- * The LogicaAI flow — see LogicaFlow.tsx.
+ * Horizontal folding cards — see LogicaFlow.tsx.
  *
- * Everything that animates is transform or opacity. The spine's fill is a
- * scaleY driven by one custom property (--p) that the component writes from
- * the scroll position.
+ * The row is a grid whose column widths animate: the open card takes 2.2fr,
+ * the rest 1fr each. Animating grid-template-columns keeps every card in the
+ * same row and needs no width measurement.
  */
 
 .flow {
   position: relative;
-  /* No bottom padding: the spine runs to the edge of this box, and the flow
-     ends on the outcome cards rather than trailing off below them. */
-  padding-top: clamp(10px, 1.6vw, 22px);
 }
 
-/* ---------------------------------------------------------------- the spine */
-
-.spine {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  translate: -50% 0;
-  background: color-mix(in srgb, var(--ink) 11%, transparent);
-  border-radius: 2px;
-  pointer-events: none;
-}
-
-.spineFill {
-  position: absolute;
-  inset: 0;
-  transform-origin: top center;
-  transform: scaleY(var(--p, 0));
-  background: linear-gradient(
-    180deg,
-    var(--orange-bright),
-    var(--orange) 45%,
-    var(--orange-dark)
-  );
-  border-radius: 2px;
-}
-
-/* The leading edge of the fill, so the eye has something to follow. */
-.spineFill::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 11px;
-  height: 11px;
-  translate: -50% 50%;
-  border-radius: 50%;
-  background: var(--orange);
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--orange) 16%, transparent);
-}
-
-/* ---------------------------------------------------------------- stations */
-
-.station {
-  position: relative;
-  padding-block: clamp(34px, 4.6vw, 68px);
-  text-align: center;
-}
-
-/* Sits astride the spine, so the line reads as running through it. */
-.chip {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  gap: 11px;
-  padding: 9px 20px 9px 10px;
-  border: 1px solid var(--line);
-  border-radius: 100px;
-  background: var(--bg);
-  font-size: 0.8rem;
-  font-weight: 650;
-  letter-spacing: 0.01em;
-  color: var(--ink);
-}
-
-.chip b {
-  display: inline-flex;
-  align-items: center;
-  padding: 3px 9px;
-  border-radius: 100px;
-  background: color-mix(in srgb, var(--orange) 13%, transparent);
-  color: var(--orange);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.72rem;
-  font-weight: 600;
-}
-
-/* Sits over the spine and hides it, so the line enters this block at the top
-   and leaves at the bottom instead of striking through the headline. The host
-   section passes its own background in as --flow-bg. */
-.stationHead {
-  position: relative;
-  z-index: 1;
-  background: var(--flow-bg, var(--bg));
-  padding-block: 12px;
-  margin-top: clamp(14px, 1.6vw, 20px);
-}
-
-.stationTitle {
-  font-size: clamp(1.45rem, 2.6vw, 2.2rem);
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 1.1;
-  margin: 0;
-  text-wrap: balance;
-}
-
-.stationCaption {
-  max-width: 56ch;
-  margin: 12px auto 0;
-  font-size: 0.98rem;
-  line-height: 1.6;
-  color: var(--gray-600);
-}
-
-/* The rails the nodes hang off. Ends fade rather than stopping hard, so the
-   rail does not have to know where the first and last node centres are. */
-.bus {
-  position: relative;
-  height: 1px;
-  margin: clamp(26px, 3vw, 40px) auto 0;
-  width: min(100%, 1060px);
-  background: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in srgb, var(--ink) 14%, transparent) 14%,
-    color-mix(in srgb, var(--ink) 14%, transparent) 86%,
-    transparent
-  );
-}
-
-.busMerge {
-  margin-top: 26px;
-}
-
-/* ---------------------------------------------------------------- the nodes */
-
-.nodes {
-  display: grid;
-  grid-template-columns: repeat(var(--cols, 5), minmax(0, 1fr));
-  gap: clamp(10px, 1.2vw, 18px);
-  margin-top: 26px;
-}
-
-.node {
-  position: relative;
+.promises {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 14px;
+  margin-bottom: clamp(34px, 4vw, 54px);
+}
+
+.promise {
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: clamp(16px, 1.6vw, 22px) 10px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg, 14px);
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1px solid color-mix(in srgb, var(--orange) 26%, var(--line));
+  border-radius: 100px;
   background: var(--bg);
-  /* Held back until the station arrives; see [data-step].in below. */
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.6s var(--ease, ease), transform 0.6s var(--ease, ease),
-    border-color 0.35s ease, background 0.35s ease;
-  transition-delay: calc(var(--i, 0) * 70ms);
+  font-size: 0.86rem;
+  font-weight: 650;
+  letter-spacing: -0.012em;
 }
 
-/* The stubs joining each node to the rail above and the rail below, so the
-   station reads as a split and a merge rather than two floating lines. */
-.node::before,
-.node::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  width: 1px;
-  height: 26px;
-  background: color-mix(in srgb, var(--ink) 14%, transparent);
-}
-
-.node::before {
-  top: -26px;
-}
-
-.node::after {
-  bottom: -26px;
-}
-
-.node:hover {
-  border-color: color-mix(in srgb, var(--orange) 45%, var(--line));
-  background: color-mix(in srgb, var(--orange) 4%, var(--bg));
-}
-
-.nodeIcon {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--orange) 11%, transparent);
+.promise svg {
   color: var(--orange);
   flex: none;
 }
 
-.nodeName {
-  font-size: 0.82rem;
-  font-weight: 650;
-  line-height: 1.3;
-  letter-spacing: -0.012em;
-  text-wrap: balance;
-}
+/* ------------------------------------------------------------------- cards */
 
-.flowMark {
-  display: block;
-  margin-top: 14px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.64rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--ink) 36%, transparent);
-}
-
-/* ---------------------------------------------------------------- outcomes */
-
-.outcomes {
-  padding-bottom: 0;
-}
-
-.outcomes .stationTitle {
-  font-size: clamp(1.7rem, 3.2vw, 2.7rem);
-}
-
-.outcomeGrid {
+.layers {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(14px, 1.6vw, 24px);
-  margin-top: clamp(30px, 3.4vw, 46px);
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  gap: clamp(8px, 1vw, 14px);
+  align-items: stretch;
+  /* An explicit track, not a min-height: the row is this tall whatever the
+     open card contains, so switching cards cannot move anything below it.
+     A min-height would still let the content grow the auto row. */
+  grid-template-rows: var(--flow-row, 372px);
+  transition: grid-template-columns 0.55s var(--ease);
 }
 
-.outcome {
+.layers:has(.layer:nth-child(1).isOpen) {
+  grid-template-columns: 2.2fr 1fr 1fr 1fr 1fr;
+}
+.layers:has(.layer:nth-child(2).isOpen) {
+  grid-template-columns: 1fr 2.2fr 1fr 1fr 1fr;
+}
+.layers:has(.layer:nth-child(3).isOpen) {
+  grid-template-columns: 1fr 1fr 2.2fr 1fr 1fr;
+}
+.layers:has(.layer:nth-child(4).isOpen) {
+  grid-template-columns: 1fr 1fr 1fr 2.2fr 1fr;
+}
+.layers:has(.layer:nth-child(5).isOpen) {
+  grid-template-columns: 1fr 1fr 1fr 1fr 2.2fr;
+}
+
+.layer {
   position: relative;
-  padding: clamp(24px, 2.6vw, 34px);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(18px, 1.8vw, 26px);
   border: 1px solid var(--line);
-  border-radius: var(--radius-lg, 14px);
-  background: var(--bg);
+  border-radius: var(--radius-lg);
+  /* Closed cards sit back; the open one comes forward as plain white. */
+  background: var(--gray-50);
+  font: inherit;
+  color: inherit;
   text-align: left;
+  cursor: pointer;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.65s var(--ease, ease), transform 0.65s var(--ease, ease);
-  transition-delay: calc(var(--i, 0) * 100ms);
+  transition: border-color 0.45s var(--ease), background 0.45s var(--ease),
+    box-shadow 0.45s var(--ease);
 }
 
-.outcome::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--orange), var(--orange-bright));
+.layer.isOpen {
+  border-color: color-mix(in srgb, var(--orange) 42%, var(--line));
+  background: var(--white);
+  box-shadow: var(--shadow-lg);
 }
 
-.outcomeIcon {
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 13px;
-  background: color-mix(in srgb, var(--orange) 12%, transparent);
+/* --------------------------------------------------------------- the head */
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Closed, the column is too narrow to read a number and a label side by
+   side, so they stack. */
+.layer:not(.isOpen) .head {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.step {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   color: var(--orange);
-  margin-bottom: 18px;
+  flex: none;
 }
 
-.outcome h4 {
-  font-size: 1.12rem;
+.kicker {
+  font-size: clamp(1rem, 1.35vw, 1.22rem);
   font-weight: 750;
-  letter-spacing: -0.028em;
-  margin: 0 0 9px;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  min-width: 0;
 }
 
-.outcome p {
-  margin: 0;
-  font-size: 0.94rem;
-  line-height: 1.6;
-  color: var(--gray-600);
+.chevron {
+  margin-left: auto;
+  display: inline-flex;
+  color: var(--orange);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+  flex: none;
 }
 
-/* ------------------------------------------------------------ the reveal */
-
-[data-step].in .node,
-[data-step].in .outcome {
+.layer.isOpen .chevron {
   opacity: 1;
   transform: none;
 }
 
-/* ---------------------------------------------------------------- narrow */
+/* --------------------------------------------------------------- the body */
 
-@media (max-width: 1040px) {
-  /* The rails only line up while every node is on one row. */
-  .bus,
-  .node::before,
-  .node::after {
-    display: none;
-  }
+/* On desktop the body never sets the card's height - the row does, via the
+   explicit track above, and the body just fills what is left. Animating the
+   height instead moved the row, and mid-transition it dipped between the two
+   states, which is the shudder this replaces. Only opacity changes now. */
+.body {
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
 
-  .nodes {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    margin-top: clamp(24px, 3vw, 34px);
-  }
+.layer.isOpen .body {
+  opacity: 1;
+}
 
-  .node {
-    flex-direction: row;
-    text-align: left;
-    padding: 14px 16px;
-  }
+.bodyInner {
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
 
-  .outcomeGrid {
-    grid-template-columns: 1fr;
+@media (min-width: 1001px) {
+  .body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
   }
 }
 
-@media (max-width: 720px) {
-  .spine {
-    left: 14px;
-    translate: 0 0;
+.layerTitle {
+  display: block;
+  margin-top: 18px;
+  font-size: clamp(1.18rem, 1.6vw, 1.45rem);
+  font-weight: 750;
+  letter-spacing: -0.028em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.layerNote {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--t-card-body);
+  line-height: var(--lh-card-body);
+  color: var(--gray-600);
+}
+
+/* One chip per line, and space reserved for the longest layer's four, so the
+   row is the same height whichever card is open and the CTA underneath never
+   jumps. Wrapping chips would make the height depend on the text. */
+.items {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 18px;
+  min-height: var(--items-min, 188px);
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--gray-50);
+  font-size: 0.92rem;
+  font-weight: 640;
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.item svg {
+  color: var(--orange);
+  flex: none;
+}
+
+/* The affordance. Only the closed cards advertise it. It is positioned out of
+   the flow so it cannot push the body around. */
+.tap {
+  position: absolute;
+  left: clamp(18px, 1.8vw, 26px);
+  bottom: clamp(16px, 1.6vw, 22px);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 36%, transparent);
+  transition: opacity 0.3s var(--ease);
+}
+
+.layer.isOpen .tap {
+  opacity: 0;
+}
+
+/* --------------------------------------------------------------- narrow */
+
+@media (max-width: 1000px) {
+  /* A stack: same folding behaviour, one card per row. The selectors are
+     spelled out so they outweigh the :has() rules above, which carry the
+     specificity of their own argument. */
+  .layers,
+  .layers:has(.layer:nth-child(1).isOpen),
+  .layers:has(.layer:nth-child(2).isOpen),
+  .layers:has(.layer:nth-child(3).isOpen),
+  .layers:has(.layer:nth-child(4).isOpen),
+  .layers:has(.layer:nth-child(5).isOpen) {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 
-  .station {
-    text-align: left;
-    padding-left: 38px;
+  .item {
+    white-space: normal;
   }
 
-  .stationCaption {
-    margin-inline: 0;
+  /* Stacked, nothing lines up across cards, so nothing needs reserving. */
+  .items {
+    min-height: 0;
   }
 
-  .flowMark {
-    display: none;
+  .layers {
+    grid-template-rows: none;
+  }
+
+  /* One card per row: here the body may drive the height again. */
+  .body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s var(--ease), opacity 0.35s var(--ease);
+  }
+
+  .layer.isOpen .body {
+    grid-template-rows: 1fr;
+  }
+
+  .bodyInner {
+    overflow: hidden;
+  }
+
+  .tap {
+    position: static;
+    padding-top: 14px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .node,
-  .outcome {
-    opacity: 1;
-    transform: none;
+  .layers,
+  .layer,
+  .body,
+  .chevron {
     transition: none;
   }
 }

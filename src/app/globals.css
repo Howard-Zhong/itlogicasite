@@ -6,6 +6,14 @@
    ========================================================================== */
 
 :root {
+  /* One card ladder, shared by every card on the site: a title, a bigger
+     title for the two-up blocks, and one body size. Anything that sets its
+     own size below these is a deliberate exception, not a drift. */
+  --t-card-title: 1.08rem;
+  --t-card-title-lg: clamp(1.14rem, 1.5vw, 1.3rem);
+  --t-card-body: 0.95rem;
+  --lh-card-title: 1.25;
+  --lh-card-body: 1.62;
   /* Brand */
   --orange: #d96119;
   --orange-bright: #f0873a;
@@ -126,6 +134,20 @@ p:last-child {
 .h2 {
   font-size: clamp(1.95rem, 4vw, 3.35rem);
   line-height: 1.04;
+}
+
+/* On a phone a display headline runs past the four lines Chrome will balance,
+   so balancing switches itself off and the last line is left with one word.
+   `pretty` has no line cap and its whole job is to prevent that. */
+@media (max-width: 900px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  .h2,
+  .h3 {
+    text-wrap: pretty;
+  }
 }
 
 .h3 {
@@ -506,6 +528,9 @@ p:last-child {
 /* Stats -------------------------------------------------------------------- */
 
 .stat-value {
+  /* It is a <p>, so kill the inherited paragraph margin — at this size the
+     1em default opened a 58px hole between the number and its label. */
+  margin: 0;
   font-size: clamp(2.2rem, 4.4vw, 3.6rem);
   font-weight: 800;
   letter-spacing: -0.045em;

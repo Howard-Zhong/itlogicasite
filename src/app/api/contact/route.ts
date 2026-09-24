@@ -22,7 +22,7 @@ function recipientFor(office: OfficeKey): string {
   if (office === "atlanta") {
     return process.env.CONTACT_EMAIL_ATLANTA || offices.atlanta.email;
   }
-  return process.env.CONTACT_EMAIL_NANJING || offices.nanjing.email;
+  return offices.atlanta.email;
 }
 
 function escapeHtml(value: string) {
@@ -62,7 +62,7 @@ export async function POST(request: Request) {
   if (!EMAIL_RE.test(email)) {
     return NextResponse.json({ ok: false, error: "That email address looks wrong." }, { status: 400 });
   }
-  if (office !== "atlanta" && office !== "nanjing") {
+  if (office !== "atlanta") {
     return NextResponse.json({ ok: false, error: "Please choose an office." }, { status: 400 });
   }
   if (message.length > 8000) {

@@ -37,17 +37,17 @@ export const keyStats = [
 export const values = [
   {
     title: "Trust",
-    body: "Twenty years of accounts that renew, CMMI Level 3 process and ISO/IEC 27001 security. Clients hand us the systems they cannot afford to have go wrong, and we have not given them a reason to regret it.",
+    body: "Two decades of accounts that renew. Clients hand us the systems they cannot afford to have go wrong.",
     icon: "shield",
   },
   {
     title: "Value",
-    body: "Always on time, always on budget — measured against the business outcome rather than hours logged. Milestones and accountability are agreed before the first line of code.",
+    body: "Always on time, always on budget — measured against the business outcome, not hours logged.",
     icon: "target",
   },
   {
     title: "Innovation",
-    body: "Computer vision on the farm floor, carbon accounting at industry scale, agentic AI in production. We bring new technology in where it pays, not where it demos well.",
+    body: "We bring new technology in where it pays, not where it demos well.",
     icon: "spark",
   },
 ];
@@ -87,7 +87,7 @@ export const milestones = [
   {
     year: "2009",
     title: "Benchmark becomes the U.S. standard",
-    body: "The Benchmark system launches and becomes the U.S. industry standard. ITLogica becomes Elanco's core analytics provider and a Microsoft Solutions Partner.",
+    body: "The Benchmark system launches and becomes the U.S. industry standard. ITLogica becomes a Microsoft Solutions Partner.",
   },
   {
     year: "2013",
@@ -125,7 +125,6 @@ export const companyFacts = [
   { label: "Ownership", value: "Privately held · Minority Business Enterprise" },
   { label: "Founded", value: "2002 — 20+ years in business" },
   { label: "Headquarters", value: "Atlanta, Georgia, USA" },
-  { label: "Delivery Center", value: "Nanjing, Jiangsu, China" },
   { label: "Other locations", value: "Columbia SC · Indianapolis IN" },
   { label: "Position", value: "Fortune 500 Tier 1 solution provider" },
 ];
