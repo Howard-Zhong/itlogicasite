@@ -5,19 +5,19 @@ import type { IconName } from "@/components/Icon";
 /** Three questions prospects arrive with, each with the answer on hover. */
 export const pilotTrap = [
   {
-    q: "Why doesn't our AI reach production?",
+    q: "Why doesn't your AI reach production?",
     stat: "95%",
     statLabel: "of enterprise AI pilots never ship",
     a: "Not because the model is weak. Because nothing ever integrated it with the systems the business actually runs on.",
   },
   {
-    q: "Why isn't our AI accurate?",
+    q: "Why isn't your AI accurate?",
     stat: "#1",
     statLabel: "predictor of AI success is data readiness",
     a: "Ahead of the model, the framework and the infrastructure. Garbage in, garbage out — and most projects start before the data is ready.",
   },
   {
-    q: "Why can't we see the ROI?",
+    q: "Why can't you see the ROI?",
     stat: "42%",
     statLabel: "of AI projects show zero measurable return",
     a: "The measurement was never built in. If success isn't defined before the work starts, no result will look like one.",
