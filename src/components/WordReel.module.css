@@ -129,27 +129,14 @@
 
 /* ---------- below the ring's breakpoint ---------- */
 
-@media (max-width: 940px) {
-  /* The ring needs width it does not have on a phone; the headline and its
-     motif stay, the track and the balls go. */
+/* Once the two hero columns stack the ring gets the whole container width,
+   so it stays until the screen itself is too narrow for six labelled balls.
+   Below that there is nothing left but ornament, and the core is empty now
+   that the headline lives beside the ring rather than inside it — so the
+   whole orbit goes rather than collapsing to a floating motif. */
+@media (max-width: 700px) {
   .orbit {
-    height: auto;
-  }
-
-  .track,
-  .dot {
     display: none;
-  }
-
-  .core {
-    position: static;
-    translate: none;
-    width: 100%;
-  }
-
-  .coreArt {
-    width: min(100%, 18rem);
-    opacity: 0.55;
   }
 }
 

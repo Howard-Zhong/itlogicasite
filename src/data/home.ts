@@ -2,40 +2,53 @@ import type { IconName } from "@/components/Icon";
 
 /* ---------------------------------------------------------------- the trap */
 
-/** Three questions prospects arrive with, each with the answer on hover. */
+/*
+ * Three reasons AI stalls — answers, not more questions.
+ *
+ * Each card leads with the answer, explains it, and only then shows the
+ * industry figure as evidence with its source. The earlier version put the
+ * figure between the question and the answer, and readers took the figure
+ * for the answer.
+ */
 export const pilotTrap = [
   {
-    q: "Why doesn't your AI reach production?",
+    answer: "The integration was never anyone's job",
+    body: "A pilot proves a model. Production needs that model wired into the systems the business already runs on, and kept there — work that rarely has an owner.",
     stat: "95%",
-    statLabel: "of enterprise AI pilots never ship",
-    a: "Not because the model is weak. Because nothing ever integrated it with the systems the business actually runs on.",
+    fact: "of enterprise AI pilots never reach production",
+    source: "MIT, 2025",
   },
   {
-    q: "Why isn't your AI accurate?",
+    answer: "The data was not ready before the model was",
+    body: "Data readiness predicts success better than the model, the framework or the infrastructure does. Garbage in, garbage out still decides the outcome.",
     stat: "#1",
-    statLabel: "predictor of AI success is data readiness",
-    a: "Ahead of the model, the framework and the infrastructure. Garbage in, garbage out — and most projects start before the data is ready.",
+    fact: "predictor of AI success is data readiness",
+    source: "Stanford Digital Economy Lab, 2026",
   },
   {
-    q: "Why can't you see the ROI?",
+    answer: "Nobody designed what the return would look like",
+    body: "If the measurement is not built before the work starts, no result reads as a win — and the next round of funding quietly goes somewhere else.",
     stat: "42%",
-    statLabel: "of AI projects show zero measurable return",
-    a: "The measurement was never built in. If success isn't defined before the work starts, no result will look like one.",
+    fact: "of AI projects show no measurable return",
+    source: "Enterprise AI survey, 2026",
   },
 ] as const;
 
 /* ------------------------------------------------------------- why ITLogica */
 
+/* Order matters: the section headline is about the twenty years of
+   foundations, so that answer comes first. LogicaAI follows as what we built
+   on top of it, and the platform itself gets its own section further down. */
 export const whyItl = [
   {
-    icon: "layers" as IconName,
-    t: "LogicaAI takes it to production",
-    b: "Our own platform handles the integration and the deployment, so the pilot and the production system are the same thing — governed, integrated, owned by your team.",
+    icon: "data" as IconName,
+    t: "Two decades inside data-heavy industries",
+    b: "For two decades our engineers have lived inside data-heavy industries — a benchmarking platform spanning the majority of U.S. cattle harvest volume, a re-platformed margin engine for a global commodities trader, a unified on-farm data layer for a multinational animal-nutrition group, and modernized billing and field systems for regional utilities.",
   },
   {
-    icon: "data" as IconName,
-    t: "Twenty years of data engineering under it",
-    b: "Before a model can run, the data has to be found, cleaned, joined and kept current. That is the work we have done for enterprises since 2002 — so we already know why your data is messy and how to fix it.",
+    icon: "layers" as IconName,
+    t: "And a platform built on top of it",
+    b: "LogicaAI carries the integration, the guardrails and the monitoring, so the pilot and the production system are the same thing — governed, integrated, owned by your team.",
   },
 ];
 

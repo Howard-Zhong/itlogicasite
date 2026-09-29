@@ -31,7 +31,7 @@ export const partners = [
 export const keyStats = [
   { value: "20+", label: "Years delivering" },
   { value: "500+", label: "Projects delivered" },
-  { value: "100%", label: "On time, on budget" },
+  { value: "0", label: "Projects late or over budget" },
 ];
 
 export const values = [

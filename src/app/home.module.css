@@ -17,7 +17,7 @@
        meta     badge, stat labels, buttons
        micro    the badge pill
      Sizes quoted at 1440. */
-  --t-display: clamp(1.95rem, 4.2vw, 3.9rem);
+  --t-display: clamp(2.3rem, 5.2vw, 4.9rem);
   --t-feature: clamp(1.6rem, 2.6vw, 2.35rem);
   --t-body: clamp(1.05rem, 1.35vw, 1.22rem);
   --t-meta: 0.875rem;
@@ -31,8 +31,11 @@
   /* A full screen: the ring is the page's opening statement, and the content
      is centred in what the nav leaves of it. */
   min-height: 100svh;
+  /* A column, not a row: the hero has two in-flow children now — the content
+     and the logo wall that closes the screen. */
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   padding-top: calc(var(--nav-h) + var(--hero-pad));
   padding-bottom: var(--hero-pad);
   background: var(--white);
@@ -92,9 +95,46 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  gap: clamp(34px, 4.2vw, 62px);
+}
+
+/* Claim left, ring right. The ring column is the narrower of the two: the
+   words have to carry the page, the animation only has to be seen. */
+.heroSplit {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   align-items: center;
-  text-align: center;
-  gap: clamp(16px, 2vw, 28px);
+  gap: clamp(24px, 3vw, 56px);
+}
+
+ /* Spacing is a rhythm, not one number: the badge sits closer to the
+    headline than the headline does to the lede, and the buttons get the
+    biggest break of all. A single `gap` flattened all three to 14px. */
+.heroText {
+  --step: clamp(10px, 1.1vw, 15px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 0;
+}
+
+.heroText > * + * {
+  margin-top: calc(var(--step) * 2);
+}
+
+.heroText .heroLead {
+  margin-top: calc(var(--step) * 1.5);
+}
+
+.heroText .heroCtas {
+  margin-top: calc(var(--step) * 2.8);
+}
+
+.heroArt {
+  display: grid;
+  place-items: center;
+  min-width: 0;
 }
 
 .heroBadge {
@@ -129,10 +169,10 @@
 .heroWords {
   /* Ring geometry. --orb-rx has to leave the headline clear of the balls at
      three and nine o'clock; --orb-ry has to leave it clear of twelve and six. */
-  --orb-rx: clamp(262px, 34.5vw, 500px);
-  --orb-ry: clamp(130px, 12vw, 176px);
-  --orb-dot: clamp(92px, 7.6vw, 112px);
-  --core-art-w: clamp(210px, 23vw, 330px);
+  --orb-rx: clamp(140px, 15.5vw, 236px);
+  --orb-ry: clamp(112px, 11.5vw, 172px);
+  --orb-dot: clamp(84px, 7vw, 104px);
+  --core-art-w: clamp(150px, 15vw, 215px);
   width: 100%;
 }
 
@@ -141,7 +181,9 @@
   line-height: 0.98;
   letter-spacing: -0.045em;
   font-weight: 800;
-  margin: 0;
+  /* No `margin: 0` here: it ties with .heroText > * + * on specificity and,
+     being later in the file, would win and kill the badge-to-headline gap.
+     The global h1 reset already zeroes the margin at lower specificity. */
 }
 
 .heroTitle span {
@@ -189,24 +231,17 @@
   margin-bottom: -0.2em;
 }
 
-/* ------------------------------------------------------- under the ring */
+/* ------------------------------------------------------- under the split */
 
-.heroFoot {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(16px, 2vw, 26px);
-  width: 100%;
-}
-
-/* Three numbers on one line, value and label side by side, divided by a
-   hairline. They read as a single strip, not three cards. */
+/* Three numbers on one line, value and label side by side. They read as a
+   single strip, not three cards, and sit on a rule under both columns. */
 .heroStats {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   align-items: baseline;
   gap: clamp(18px, 3vw, 44px);
+  padding-top: clamp(26px, 2.8vw, 38px);
+  border-top: 1px solid var(--line);
 }
 
 .heroStats > div {
@@ -231,20 +266,61 @@
   font-size: var(--t-body);
   line-height: 1.55;
   color: var(--gray-600);
-  max-width: 62ch;
+  max-width: 52ch;
   margin: 0;
 }
 
 .heroCtas {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 12px;
 }
 
+/* The logo wall closes the first screen: proof before the argument starts.
+   Its own caption sits inside the container, the wall itself bleeds. */
+.heroTrust {
+  margin: clamp(38px, 4.4vw, 62px) 0 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  color: var(--gray-600);
+}
+
+.heroLogos {
+  margin-top: clamp(18px, 2vw, 28px);
+}
+
+/* The ring needs width it does not have below this, so the two columns stack
+   and the claim is centred over the art. */
 @media (max-width: 940px) {
   .heroInner {
-    gap: 20px;
+    gap: 22px;
+  }
+
+  .heroSplit {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .heroText {
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Stacked, the ring has the full container to work with, so it grows. */
+  .heroWords {
+    --orb-rx: clamp(150px, 31vw, 300px);
+    --orb-ry: clamp(104px, 15vw, 150px);
+    --orb-dot: clamp(78px, 11vw, 96px);
+    --core-art-w: clamp(140px, 22vw, 200px);
+  }
+
+  .heroLead {
+    max-width: 58ch;
+  }
+
+  .heroCtas {
+    justify-content: center;
   }
 
   /* One per line on a phone, so a long label never breaks mid-strip. */
@@ -253,7 +329,120 @@
     align-items: center;
     gap: 10px;
   }
+
+  /* Centred with everything else once the columns stack. */
+  .heroTrust {
+    text-align: center;
+  }
 }
+
+/* Phone: the ring is hidden at this width (see WordReel), so its empty cell
+   and the row gap go with it, and the vertical rhythm tightens enough that
+   the claim, the numbers and the logo wall still land on one screen. */
+@media (max-width: 700px) {
+  .hero {
+    --t-display: clamp(2rem, 8.6vw, 2.6rem);
+  }
+
+  .heroArt {
+    display: none;
+  }
+
+  .heroInner {
+    gap: 24px;
+  }
+
+  .heroText {
+    --step: 8px;
+  }
+
+  .heroTrust {
+    margin-top: 24px;
+    font-size: 0.8rem;
+  }
+
+  .heroLogos {
+    margin-top: 14px;
+  }
+}
+
+/* Stacked but not a phone (roughly 700-940px wide): text, ring, numbers and
+   logos all on one screen only if the ring gives way on a short viewport. */
+@media (max-width: 940px) and (max-height: 1080px) {
+  .heroWords {
+    --orb-rx: clamp(130px, 27vw, 250px);
+    --orb-ry: clamp(84px, 11vw, 116px);
+    --orb-dot: clamp(70px, 9.5vw, 86px);
+    --core-art-w: clamp(120px, 18vw, 165px);
+  }
+
+  .heroInner {
+    gap: 22px;
+  }
+
+  .heroText {
+    --step: 9px;
+  }
+
+  .heroTrust {
+    margin-top: 22px;
+  }
+
+  .heroLogos {
+    margin-top: 12px;
+  }
+}
+
+/* Short phones. */
+@media (max-width: 700px) and (max-height: 800px) {
+  .hero {
+    --t-display: clamp(1.75rem, 7.6vw, 2.3rem);
+    --hero-pad: 14px;
+  }
+
+  .heroInner {
+    gap: 18px;
+  }
+
+  .heroText {
+    --step: 7px;
+  }
+
+  .heroTrust {
+    margin-top: 18px;
+  }
+
+  .heroLogos {
+    margin-top: 10px;
+  }
+}
+
+/* Very small phones (360x740 and below): the claim, the numbers and the logo
+   wall together need more than the screen has, so everything that can give
+   way does. A little of the logo wall still falls below the fold there. */
+@media (max-width: 400px) and (max-height: 780px) {
+  .hero {
+    --t-display: clamp(1.6rem, 7vw, 2rem);
+    --t-body: 0.98rem;
+  }
+
+  .heroStats {
+    gap: 6px;
+  }
+
+  .heroInner {
+    gap: 14px;
+  }
+
+  .heroTrust {
+    margin-top: 14px;
+  }
+
+  .heroLogos {
+    margin-top: 8px;
+  }
+}
+
 
 /* Short laptop viewports: keep the hero and the client-logo band above the
    fold. The ring is what costs the height, so it gives way with the ladder. */
@@ -261,7 +450,7 @@
   .hero {
     /* Still one screen — only the content inside it gives way. */
     --hero-pad: 20px;
-    --t-display: clamp(1.8rem, 3.7vw, 3.3rem);
+    --t-display: clamp(2.1rem, 4.8vw, 4.5rem);
     --t-feature: clamp(1.4rem, 2.2vw, 2rem);
     --t-body: 1rem;
   }
@@ -272,9 +461,12 @@
     --core-art-w: clamp(190px, 20vw, 280px);
   }
 
-  .heroInner,
-  .heroFoot {
-    gap: 14px;
+  .heroInner {
+    gap: clamp(24px, 3vw, 38px);
+  }
+
+  .heroText {
+    --step: 11px;
   }
 }
 
@@ -283,7 +475,7 @@
 @media (min-width: 941px) and (max-height: 800px) {
   .hero {
     --hero-pad: 16px;
-    --t-display: clamp(1.6rem, 3vw, 2.7rem);
+    --t-display: clamp(1.95rem, 4.1vw, 3.8rem);
     --t-feature: clamp(1.3rem, 2vw, 1.8rem);
   }
 
@@ -293,9 +485,20 @@
     --core-art-w: clamp(170px, 17vw, 240px);
   }
 
-  .heroInner,
-  .heroFoot {
-    gap: 14px;
+  .heroInner {
+    gap: 18px;
+  }
+
+  .heroText {
+    --step: 8px;
+  }
+
+  .heroTrust {
+    margin-top: 22px;
+  }
+
+  .heroLogos {
+    margin-top: 12px;
   }
 }
 
@@ -330,13 +533,6 @@
   .scrollHint {
     display: none;
   }
-}
-
-/* The band owns the air around the wall so the logos never touch the
-   trust line above or the Values grid below. Padding, not margin, because a
-   margin here collapses against the container that holds the trust line. */
-.logoBand {
-  padding-top: clamp(34px, 3.6vw, 50px);
 }
 
 .logoRow {
@@ -562,6 +758,17 @@
   margin: 0;
 }
 
+/* The answer to the question the headline asked. */
+.trapAnswer {
+  max-width: 68ch;
+  margin: clamp(34px, 4vw, 54px) 0 0;
+  padding-left: clamp(16px, 2vw, 26px);
+  border-left: 3px solid var(--orange);
+  font-size: clamp(1.05rem, 1.4vw, 1.24rem);
+  line-height: 1.6;
+  font-weight: 600;
+}
+
 @media (max-width: 900px) {
   .trapHead {
     grid-template-columns: 1fr;
@@ -603,9 +810,11 @@
 
 /* ------------------------------------------------------------ band: answer */
 
+ /* The first answer carries the twenty-year story and runs long; the second
+    is a short follow-on, so the columns are not equal. */
 .answerRow {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
   gap: clamp(24px, 3.5vw, 56px);
 }
 
@@ -654,52 +863,6 @@
 
 .proofRow :global(.stat-label) {
   max-width: 24ch;
-  color: var(--gray-600);
-}
-
-/* ------------------------------------------------------------ band: values */
-
-.valueRow {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(20px, 3vw, 46px);
-}
-
-.value h3 {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 9px;
-  font-size: var(--t-card-title);
-  line-height: var(--lh-card-title);
-  font-weight: 750;
-  letter-spacing: -0.026em;
-}
-
-.valueMark {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
-  background: color-mix(in srgb, var(--orange) 12%, transparent);
-  color: var(--orange);
-  flex: none;
-}
-
-.value p {
-  margin: 0;
-  font-size: var(--t-card-body);
-  line-height: var(--lh-card-body);
-  color: var(--gray-600);
-}
-
-/* ------------------------------------------------------------------- trust */
-
-.trustLine {
-  margin: clamp(44px, 5vw, 68px) 0 0;
-  text-align: center;
-  font-size: 0.92rem;
   color: var(--gray-600);
 }
 
@@ -817,8 +980,7 @@
 }
 
 @media (max-width: 620px) {
-  .proofRow,
-  .valueRow {
+  .proofRow {
     grid-template-columns: 1fr;
     gap: 26px;
   }

@@ -2,18 +2,23 @@ import Link from "next/link";
 import AiCaseCards from "@/components/AiCaseCards";
 import CaseRail from "@/components/CaseRail";
 import Counter from "@/components/Counter";
-import Icon, { type IconName } from "@/components/Icon";
+import Icon from "@/components/Icon";
 import LogicaFlow from "@/components/LogicaFlow";
 import Marquee from "@/components/Marquee";
 import PilotTrap from "@/components/PilotTrap";
 import Reveal from "@/components/Reveal";
 import WordReel from "@/components/WordReel";
 import { cases } from "@/data/cases";
-import { certifications, clients, keyStats, values } from "@/data/company";
+import { industries } from "@/data/industries";
+import { certifications, clients, keyStats } from "@/data/company";
 import { otherServices, whyItl, whyItlProof } from "@/data/home";
 import { site } from "@/data/site";
 
 import styles from "./home.module.css";
+
+/* The ring names the industries we work in, not the technologies we know:
+   the reader cares whether we understand their business. */
+const industryWords = industries.map((i) => i.name);
 
 /* The rail carries everything except the case the AI section already showed. */
 const railCases = cases.filter((c) => c.slug !== "intelligent-path-planning-shopping-malls");
@@ -27,53 +32,73 @@ export default function HomePage() {
         <div className={styles.heroGrid} aria-hidden="true" />
 
         <div className={`container ${styles.heroInner}`}>
-          <p className={styles.heroBadge}>
-            <b>Since 2002</b>
-            Atlanta, Georgia
-          </p>
+          {/* Claim on the left, the industry ring on the right. */}
+          <div className={styles.heroSplit}>
+            <div className={styles.heroText}>
+              <p className={styles.heroBadge}>
+                <b>Since 2002</b>
+                Atlanta, Georgia
+              </p>
 
-          {/* The orbit is the hero. The headline rides in the middle of it. */}
-          <WordReel className={styles.heroWords}>
-            <h1 className={styles.heroTitle}>
-              <span>
-                <i>We are an AI-first</i>
-              </span>
-              <span>
-                <i className={styles.heroAccent}>software services provider</i>
-              </span>
-            </h1>
-          </WordReel>
+              <h1 className={styles.heroTitle}>
+                <span>
+                  <i>Enterprise AI that makes it</i>
+                </span>
+                <span>
+                  <i className={styles.heroAccent}>out of pilot</i>
+                </span>
+              </h1>
 
-          <div className={styles.heroFoot}>
-            <div className={styles.heroStats}>
-              {keyStats.map((s) => (
-                <div key={s.label}>
-                  <p className="stat-value">
-                    <Counter value={s.value} />
-                  </p>
-                  <p className="stat-label">{s.label}</p>
-                </div>
-              ))}
+              <p className={styles.heroLead}>
+                Most never do. Ours pay back from the first use case &mdash; because for 20 years
+                we&rsquo;ve built the data foundations they stand on. Grounded in your data,
+                governed by your rules, and handed to your team to own.
+              </p>
+
+              <div className={styles.heroCtas}>
+                <Link href="/contact" className="btn">
+                  Book a 30-min AI readiness review
+                  <Icon name="arrow" size={16} />
+                </Link>
+                <Link href="/cases" className="btn btn-ghost">
+                  See Our Work
+                </Link>
+              </div>
             </div>
 
-            <p className={styles.heroLead}>
-              For 20 years we&rsquo;ve built the data and technology foundations enterprises run
-              on. That&rsquo;s why we know how to build the AI on top: grounded in your data,
-              governed by your rules, integrated with your systems, and handed to your team to
-              own.
-            </p>
-
-            <div className={styles.heroCtas}>
-              <Link href="/contact" className="btn">
-                Book a Consultation
-                <Icon name="arrow" size={16} />
-              </Link>
-              <Link href="/cases" className="btn btn-ghost">
-                See Our Work
-              </Link>
+            <div className={styles.heroArt}>
+              <WordReel className={styles.heroWords} words={industryWords} intervalMs={3600} />
             </div>
           </div>
+
+          <div className={styles.heroStats}>
+            {keyStats.map((s) => (
+              <div key={s.label}>
+                <p className="stat-value">
+                  <Counter value={s.value} />
+                </p>
+                <p className="stat-label">{s.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
+
+        <div className="container">
+          <p className={styles.heroTrust}>
+            Trusted by enterprise leaders across industries &mdash; several for more than a
+            decade
+          </p>
+        </div>
+
+        {/* The proof the reader wants first: who already trusts us. */}
+        <Marquee duration={52} className={styles.heroLogos}>
+          <div className={styles.logoRow}>
+            {clients.map((c) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={c.file} src={`/clients/${c.file}`} alt={c.name} loading="lazy" />
+            ))}
+          </div>
+        </Marquee>
 
         <span className={styles.scrollHint}>
           Scroll
@@ -94,14 +119,23 @@ export default function HomePage() {
             </Reveal>
             <Reveal delay={80}>
               <p className="lead">
-                A proof of concept that impresses in the demo collapses the moment it meets real
-                operational data. Three questions come up every time.
+                Almost never because of the model. Three reasons come up every time &mdash; and
+                they are all the same reason underneath.
               </p>
             </Reveal>
           </div>
 
           <Reveal delay={120}>
             <PilotTrap />
+          </Reveal>
+
+          {/* The section asked a question; this is the answer to it. */}
+          <Reveal delay={160}>
+            <p className={styles.trapAnswer}>
+              Notice what is missing from all three: the model. These are foundation problems
+              &mdash; integration, data, measurement &mdash; which is exactly the work we have
+              been doing for twenty years.
+            </p>
           </Reveal>
         </div>
       </section>
@@ -151,40 +185,8 @@ export default function HomePage() {
               </div>
             </Reveal>
 
-            <Reveal delay={140} className={styles.band}>
-              <p className={styles.bandLabel}>How we work</p>
-              <div className={styles.valueRow}>
-                {values.map((value) => (
-                  <div className={styles.value} key={value.title}>
-                    <h3>
-                      <span className={styles.valueMark}>
-                        <Icon name={value.icon as IconName} size={19} />
-                      </span>
-                      {value.title}
-                    </h3>
-                    <p>{value.body}</p>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
           </div>
-
-          <Reveal delay={60}>
-            <p className={styles.trustLine}>
-              Trusted by enterprise leaders across industries &mdash; several for more than a
-              decade
-            </p>
-          </Reveal>
         </div>
-
-        <Marquee duration={52} className={styles.logoBand}>
-          <div className={styles.logoRow}>
-            {clients.map((c) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img key={c.file} src={`/clients/${c.file}`} alt={c.name} loading="lazy" />
-            ))}
-          </div>
-        </Marquee>
       </section>
 
       {/* ------------------------------------------------------------- LogicaAI */}
@@ -192,15 +194,16 @@ export default function HomePage() {
         <div className="container">
           <div className={styles.centerHead}>
             <Reveal>
-              <span className="eyebrow">Our AI practice</span>
+              <span className="eyebrow">Our AI platform</span>
               <h2 className="h2">
-                Meet LogicaAI &mdash; how we build
+                LogicaAI &mdash; the platform that
                 <br />
-                AI that reaches production.
+                carries AI into production.
               </h2>
               <p className="lead">
-                Start with your highest-value use case, prove it on your data, build only what
-                earns its place. Five steps &mdash; open any one of them.
+                Not a methodology and not a services wrapper: the agents, the knowledge base,
+                the guardrails and the monitoring all live in one place. Five steps &mdash; open
+                any one of them.
               </p>
             </Reveal>
           </div>
@@ -238,10 +241,10 @@ export default function HomePage() {
           <div className={styles.centerHead}>
             <Reveal>
               <span className="eyebrow">Need more than AI?</span>
-              <h2 className="h2">We build the rest of it too.</h2>
+              <h2 className="h2">AI is what we lead with, not all we do.</h2>
               <p className="lead">
-                AI is what we lead with, not all we do &mdash; data, cloud, connected devices
-                and applications, from the same team.
+                Data platforms, cloud, connected devices and applications &mdash; the same
+                team, the same delivery record.
               </p>
             </Reveal>
           </div>
