@@ -2,34 +2,22 @@ import type { IconName } from "@/components/Icon";
 
 /* ---------------------------------------------------------------- the trap */
 
-/*
- * Three reasons AI stalls — answers, not more questions.
- *
- * Each card leads with the answer, explains it, and only then shows the
- * industry figure as evidence with its source. The earlier version put the
- * figure between the question and the answer, and readers took the figure
- * for the answer.
- */
+/* Three industry figures, each with its source. The figure is the message
+   here — no headline, no commentary above it. */
 export const pilotTrap = [
   {
-    answer: "The integration was never anyone's job",
-    body: "A pilot proves a model. Production needs that model wired into the systems the business already runs on, and kept there — work that rarely has an owner.",
     stat: "95%",
-    fact: "of enterprise AI pilots never reach production",
+    fact: "of enterprise AI pilots never reach production.",
     source: "MIT, 2025",
   },
   {
-    answer: "The data was not ready before the model was",
-    body: "Data readiness predicts success better than the model, the framework or the infrastructure does. Garbage in, garbage out still decides the outcome.",
     stat: "#1",
-    fact: "predictor of AI success is data readiness",
+    fact: "predictor of AI success is data readiness — ahead of the model, the framework or the infrastructure.",
     source: "Stanford Digital Economy Lab, 2026",
   },
   {
-    answer: "Nobody designed what the return would look like",
-    body: "If the measurement is not built before the work starts, no result reads as a win — and the next round of funding quietly goes somewhere else.",
     stat: "42%",
-    fact: "of AI projects show no measurable return",
+    fact: "of AI projects show zero measurable ROI — the measurement was never built in.",
     source: "Enterprise AI survey, 2026",
   },
 ] as const;
@@ -53,7 +41,7 @@ export const whyItl = [
 ];
 
 export const whyItlProof = [
-  { value: "1,500+", label: "sites running on data architecture we built" },
+  { value: "1,500+", label: "feedyards running on data architecture we built" },
   { value: "30 yrs", label: "of industry history kept query-ready in production" },
   { value: "$10M+", label: "in carbon payments facilitated from fragmented data" },
 ];

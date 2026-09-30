@@ -9,16 +9,23 @@ import PilotTrap from "@/components/PilotTrap";
 import Reveal from "@/components/Reveal";
 import WordReel from "@/components/WordReel";
 import { cases } from "@/data/cases";
-import { industries } from "@/data/industries";
 import { certifications, clients, keyStats } from "@/data/company";
 import { otherServices, whyItl, whyItlProof } from "@/data/home";
 import { site } from "@/data/site";
 
 import styles from "./home.module.css";
 
-/* The ring names the industries we work in, not the technologies we know:
-   the reader cares whether we understand their business. */
-const industryWords = industries.map((i) => i.name);
+/* What the ring names: the things we actually build. */
+const buildWords = [
+  "AI Agent",
+  "Machine Learning",
+  "Computer Vision",
+  "Sound Recognition",
+  "Data Analysis",
+  "Cloud",
+  "IoT",
+  "Mobile & Web",
+];
 
 /* The rail carries everything except the case the AI section already showed. */
 const railCases = cases.filter((c) => c.slug !== "intelligent-path-planning-shopping-malls");
@@ -50,9 +57,10 @@ export default function HomePage() {
               </h1>
 
               <p className={styles.heroLead}>
-                Most never do. Ours pay back from the first use case &mdash; because for 20 years
-                we&rsquo;ve built the data foundations they stand on. Grounded in your data,
-                governed by your rules, and handed to your team to own.
+                For 20+ years we&rsquo;ve built the data and technology foundations enterprises
+                run on. That&rsquo;s why we know how to build the AI on top: grounded in your
+                data, governed by your rules, integrated with your systems, and handed to your
+                team to own.
               </p>
 
               <div className={styles.heroCtas}>
@@ -67,7 +75,8 @@ export default function HomePage() {
             </div>
 
             <div className={styles.heroArt}>
-              <WordReel className={styles.heroWords} words={industryWords} intervalMs={3600} />
+              <p className={styles.heroArtTitle}>What we build</p>
+              <WordReel className={styles.heroWords} words={buildWords} intervalMs={3600} />
             </div>
           </div>
 
@@ -112,15 +121,16 @@ export default function HomePage() {
           <div className={styles.trapHead}>
             <Reveal>
               <h2 className="h2">
-                Why is AI hard to start
+                The problem isn&rsquo;t the model.
                 <br />
-                &mdash; and harder to finish?
+                It&rsquo;s the foundation.
               </h2>
             </Reveal>
             <Reveal delay={80}>
               <p className="lead">
-                Almost never because of the model. Three reasons come up every time &mdash; and
-                they are all the same reason underneath.
+                Everywhere, the same pattern: a brilliant proof-of-concept that collapses the
+                moment it meets real operational data &mdash; not because the AI is weak, but
+                because the data underneath was never built to be trusted.
               </p>
             </Reveal>
           </div>
@@ -129,12 +139,12 @@ export default function HomePage() {
             <PilotTrap />
           </Reveal>
 
-          {/* The section asked a question; this is the answer to it. */}
+          {/* The section stated a problem; this is where it lands. */}
           <Reveal delay={160}>
             <p className={styles.trapAnswer}>
-              Notice what is missing from all three: the model. These are foundation problems
-              &mdash; integration, data, measurement &mdash; which is exactly the work we have
-              been doing for twenty years.
+              Trial data in animal health, meter data in utilities, margin data in agribusiness
+              &mdash; different industry, same gap.{" "}
+              <b>And that gap is exactly where we&rsquo;ve worked for twenty years.</b>
             </p>
           </Reveal>
         </div>
@@ -195,15 +205,10 @@ export default function HomePage() {
           <div className={styles.centerHead}>
             <Reveal>
               <span className="eyebrow">Our AI platform</span>
-              <h2 className="h2">
-                LogicaAI &mdash; the platform that
-                <br />
-                carries AI into production.
-              </h2>
+              <h2 className="h2">Meet our platform &mdash; LogicaAI</h2>
               <p className="lead">
-                Not a methodology and not a services wrapper: the agents, the knowledge base,
-                the guardrails and the monitoring all live in one place. Five steps &mdash; open
-                any one of them.
+                The agents, the knowledge base, the guardrails and the monitoring all live in
+                one place.
               </p>
             </Reveal>
           </div>

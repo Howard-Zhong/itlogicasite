@@ -40,7 +40,7 @@
   padding-inline: calc(var(--orb-dot) * 0.1);
   text-align: center;
   text-wrap: balance;
-  font-size: calc(var(--orb-dot) * 0.121);
+  font-size: calc(var(--orb-dot) * 0.145);
   font-weight: 650;
   line-height: 1.16;
   letter-spacing: -0.012em;
